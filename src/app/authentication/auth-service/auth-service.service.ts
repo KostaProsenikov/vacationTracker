@@ -59,6 +59,7 @@ export class AuthService {
   }
 
   checkIfLogged(): boolean {
+    // console.log('this', this.currentAuthToken, localStorage.getItem('authtoken'));
     return this.currentAuthToken === localStorage.getItem('authtoken');
   }
 

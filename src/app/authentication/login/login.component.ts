@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('login', this.login);
+    // console.log('login', this.login);
     this.authService.login(this.login).subscribe(
       (res) => this.onSuccessLoginUser(res),
       (err) => this.onError(err)
@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
 
   onSuccessLoginUser(res) {
     // console.log('res', res);
+    this.authService.authtoken = res['_kmd']['authtoken'];
     localStorage.setItem('authtoken', res['_kmd']['authtoken']);
     localStorage.setItem('username', res['username']);
     this.router.navigate(['']);

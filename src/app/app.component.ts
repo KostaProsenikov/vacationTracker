@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Directive App';
+  title = 'Vacation Tracker';
   notCapitalString = 'something not capitalized';
 }

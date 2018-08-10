@@ -22,7 +22,9 @@ export class NavComponentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription =this.router.events.subscribe(event => {
       if(event instanceof NavigationEnd) {
-        this.username = this.authService.getCurrentUser();
+        if (this.authService.checkIfLogged()) {
+           this.username = this.authService.getCurrentUser();
+        }
       }
     });
   }
