@@ -9,3 +9,7 @@ a:not([href]):not([tabindex]) {
 #notclick{
     cursor: context-menu;
 }
+.logo {
+    width: 40px;
+    margin-right: 17px;
+}
