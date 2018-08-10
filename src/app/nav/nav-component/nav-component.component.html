@@ -16,7 +16,10 @@
         <a class="nav-link" [routerLink]="['/register']">Register</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" >Logout</a>
+        <a class="nav-link" (click)="logout()" >Logout</a>
+      </li>
+      <li class="nav-item pull" *ngIf="username">
+          <a class="nav-link" id="notclick" >{{username}}</a>
       </li>
     </ul>
   </div>

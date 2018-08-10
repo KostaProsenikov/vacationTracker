@@ -1,0 +1,11 @@
+a:not([href]):not([tabindex]) {
+    color: inherit;
+    cursor: pointer;
+}
+.pull[_ngcontent-c1] {
+    position: absolute;
+    right: 2px;
+}
+#notclick{
+    cursor: context-menu;
+}

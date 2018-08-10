@@ -10,6 +10,8 @@ import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app.routing';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './authentication/auth-service/auth-service.service';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,10 @@ import { AppRoutingModule } from './app.routing';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [  ],
+  providers: [ AuthService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

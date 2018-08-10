@@ -1,5 +1,9 @@
 <h1>Registration Form</h1>
 <!-- {{ diagnostics }} -->
+<div class="alert alert-danger" *ngIf="loginFailed">
+    <span *ngIf="err.status === 409">User Already Exists, please choose another username!</span>
+    <span *ngIf="err.status !== 409">  Register failed, please try again! {{err.message | uppercase}}</span>
+</div>
 <form #registerForm="ngForm" (ngSubmit)="register()" >
   <div class="form-group">
     <label for="username">Username</label>
