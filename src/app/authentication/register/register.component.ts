@@ -8,10 +8,6 @@ import { RegisterModel } from '../../models/register.model';
 })
 export class RegisterComponent implements OnInit {
   model: RegisterModel;
-  username = '';
-  password = '';
-  repeatPass = '';
-
 
   constructor() {
     this.model = new RegisterModel('', '', '', '', '', 18);
@@ -20,8 +16,12 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit() {
+  register() {
     console.log('form', this.model);
+  }
+
+  get diagnostics() {
+    return JSON.stringify(this.model);
   }
 
 }

@@ -1,3 +1,36 @@
-<p>
-  login works!
-</p>
+
+<h1>Login Form</h1>
+<form #loginForm="ngForm">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text"  name="username"
+     class="form-control" id="username" 
+     [(ngModel)]="login.username"
+     #username="ngModel"
+    required>
+    <div class="alert alert-danger" 
+    [hidden]="username.valid || username.pristine"
+    >
+      Username is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" name="password" class="form-control"
+     id="password" [(ngModel)]="login.password"
+     #password="ngModel"
+    required>
+    <div class="alert alert-danger" 
+    [hidden]="password.valid || password.pristine"
+    >
+      Password is required
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success"
+    [disabled]="loginForm.invalid"
+  >
+  Login
+</button>
+</form>
+
+  
