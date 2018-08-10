@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HighLightDirective } from './directives/highlight.directive';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HighLightDirective
+    HighLightDirective,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule
