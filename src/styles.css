@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.requestBtn {
+    margin-top: 36px !important;
+    margin-left: 25px !important; 
+}
+
+.formVacation {
+    margin-top: 42px;
+}
+.formVacation mat-label {
+    font-weight: 600;
+    font-size: 1rem;
+}
+.startLabel {
+    position: absolute;
+    margin-left: 36px;
+    margin-top: -28px;
+}
+.endLabel {
+    position: absolute;
+    margin-left: 340px;
+    margin-top: -28px;
+}
+.endDatePicker {
+    position: absolute !important;
+    margin-left: 294px;
+}

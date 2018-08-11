@@ -1,3 +1,40 @@
-<p>
-  home works!
-</p>
+
+<div *ngIf="!user">
+  <mat-progress-spinner
+         class="example-margin"
+        [color]="color"
+        [mode]="mode">
+    </mat-progress-spinner>
+</div>
+<div class="main" *ngIf="user">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Your vacation days left are: {{user.daysLeft}}</h3>
+      <hr>
+      <h4>Request a new vacation</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <form #requestForm="ngForm">
+      <button mat-raised-button class="requestBtn" color="primary" matBadge="{{user.daysLeft}}" 
+      matBadgePosition="after" matBadgeColor="accent">
+      Request Vacation
+      </button>
+    </form>
+  </div>
+  <div class="row formVacation">  
+      <mat-label class="startLabel">Start Date</mat-label>
+    <mat-form-field class="example-full-width">
+      <input matInput [matDatepicker]="picker" [formControl]="startDate" placeholder="Choose a start date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-label class="endLabel">End Date</mat-label>
+    <mat-form-field class="example-full-width endDatePicker">
+        <input matInput [matDatepicker]="picker2" [formControl]="endDate" placeholder="Choose an end date">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>
