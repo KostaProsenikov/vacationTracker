@@ -14,27 +14,36 @@
       <h4>Request a new vacation</h4>
     </div>
   </div>
-
-  <div class="row">
-    <form #requestForm="ngForm">
-      <button mat-raised-button class="requestBtn" color="primary" matBadge="{{user.daysLeft}}" 
-      matBadgePosition="after" matBadgeColor="accent">
-      Request Vacation
-      </button>
-    </form>
-  </div>
-  <div class="row formVacation">  
+  <div class="alert alert-danger formError" *ngIf="errorMsg">{{errorMsg}}</div>
+  <form [formGroup]="vacationForm" (ngSubmit)="onSubmit(vacationForm.value)">
+    <div class="row formVacation">  
       <mat-label class="startLabel">Start Date</mat-label>
-    <mat-form-field class="example-full-width">
-      <input matInput [matDatepicker]="picker" [formControl]="startDate" placeholder="Choose a start date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker touchUi #picker></mat-datepicker>
-    </mat-form-field>
-    <mat-label class="endLabel">End Date</mat-label>
-    <mat-form-field class="example-full-width endDatePicker">
-        <input matInput [matDatepicker]="picker2" [formControl]="endDate" placeholder="Choose an end date">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker touchUi #picker2></mat-datepicker>
-    </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput [matDatepicker]="picker"  formControlName="startDate" placeholder="Choose a start date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <mat-label class="endLabel">End Date</mat-label>
+      <mat-form-field class="example-full-width endDatePicker">
+          <input matInput [matDatepicker]="picker2" formControlName="endDate" placeholder="Choose an end date">
+          <mat-datepicker-toggle matSuffix [for]="picker2" ></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker2 disabled="false"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="row" *ngIf="vacationForm">
+      <button mat-raised-button class="requestBtn" color="primary" matBadge="{{user.daysLeft}}" 
+      matBadgePosition="after" matBadgeColor="accent" 
+      [disabled]="vacationForm.value.startDate === '' || vacationForm.value.endDate === ''
+                  || this.errorMsg !== ''">
+        Request Vacation
+      </button>
+    </div>
+  </form>
+  <div *ngIf="vacationsArray" class="vacations">
+    <h2>Taken Vacations</h2>
+      <li *ngFor="let vacation of vacationsArray">
+         Start Date:  {{ vacation.startDate | date }} - EndDate:  {{ vacation.endDate | date }} - Days:  {{ vacation.daysTaken }}
+        </li>
   </div>
+ 
 </div>

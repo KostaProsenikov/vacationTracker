@@ -20,11 +20,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
+import { DisableControlDirective } from './directives/disableControl.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HighLightDirective,
+    DisableControlDirective,
     CapitalizePipe,
     NavComponentComponent,
     LoginComponent,

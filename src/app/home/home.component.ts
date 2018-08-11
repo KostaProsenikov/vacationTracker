@@ -4,22 +4,9 @@ import { VacationService } from '../services/vacation.service';
 import { UserModel } from '../models/user.model';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import * as _moment from 'moment';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MyDateAdapter } from '../adapters/date_adapter';
-
 const moment = _moment;
-
-// export const MY_FORMATS = {
-//   parse: {
-//     dateInput: 'LL',
-//   },
-//   display: {
-//     dateInput: 'LL',
-//     monthYearLabel: 'MMM YYYY',
-//     dateA11yLabel: 'LL',
-//     monthYearA11yLabel: 'MMMM YYYY',
-//   },
-// };
 
 @Component({
   selector: 'app-home',
@@ -31,26 +18,95 @@ const moment = _moment;
   ]
 })
 export class HomeComponent implements OnInit {
+  vacationForm: FormGroup;
   user: UserModel;
   color = 'primary';
   mode  = 'indeterminate';
-  startDate = new FormControl(moment());
-  endDate   = new FormControl(moment());
+  errorMsg: string;
+  daysTaken: number;
+  id    = localStorage.getItem('id');
+  vacationsArray = [];
 
-  constructor(private vacationService: VacationService) { }
+  constructor(private vacationService: VacationService,
+              private formBuilder: FormBuilder) 
+  { }
 
   ngOnInit() {
+    this.vacationFormInitialize();
+    this.getVacationDays();
+    this.onChanges();
+    this.getAllVacations();
+  }
+
+  getVacationDays() {
     const id = localStorage.getItem('id');
     this.vacationService.getVacationDays(id).subscribe(
       (res) => this.onSuccess(res),
       (err) => this.onError(err)
+    );
+  }
+
+  vacationFormInitialize() {
+    this.vacationForm = this.formBuilder.group({
+      startDate: new FormControl({value: '', disabled: true }, [Validators.required]),
+      endDate:   new FormControl({value: '', disabled: true }, [Validators.required]),
+      daysTaken: new FormControl({value: 0, disabled: true })
+    });
+  }
+
+  getAllVacations() {
+    this.vacationService.getAllVacations(this.id).subscribe(
+      (res) => this.onSuccessGetVacations(res),
+      (err) => this.onError(err)
     )
   }
 
-  onSuccess(res) {
-    // console.log('res', res);
+  onSuccessGetVacations(res): any {
+    //  console.log('res', res);
+     this.vacationsArray = res;
+  }
+
+  onChanges() {
+    this.vacationForm.valueChanges.subscribe( (val) => {
+      if (val['startDate'] && val['endDate']) {
+         const startDate = moment(val['startDate']);
+         const endDate   = moment(val['endDate']);
+         let daysDiff  = startDate.diff(endDate, 'days');
+         if (daysDiff > 0) {
+           this.errorMsg = 'You cannot request days in the past!';
+         } else {
+           this.errorMsg = '';
+           this.daysTaken = Math.abs(daysDiff);
+         }
+      }
+    });
+  }
+
+  onSubmit(form) {
+    form.daysTaken = this.daysTaken;
+    form.createdBy = this.id;
+    // console.log('form', form);
+    this.vacationService.requestVacation(form).subscribe(
+      (res) => this.onSuccessRequestVacation(res),
+      (err) => this.onError(err)
+    );
+  }
+
+  onSuccessRequestVacation(res): any {
+     const id = localStorage.getItem('id');
+     const daysLeft = this.user.daysLeft - this.daysTaken;
+     this.vacationService.setVacationDays(id, daysLeft).subscribe(
+      (res) => this.onSuccessSetDays(res),
+      (err) => this.onError(err)
+    );
+  }
+
+  onSuccessSetDays(res) {
     this.user = res;
-    console.log('user', this.user);
+  }
+
+  onSuccess(res) {
+    this.user = res;
   }
 
   onError(err) {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { VacationModel } from '../models/vacation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,35 @@ export class VacationService {
   APPKEY           = 'kid_SyM0pR9rm';
   APP_SECRET       = '9de57fd6deaa4665a137f24199906832';
   VACATIONDAYS_URL = `https://baas.kinvey.com/user/${this.APPKEY}/`;
+  VACATIONS_URL    = `https://baas.kinvey.com/appdata/${this.APPKEY}/vacations/`;
 
   constructor(private http: HttpClient) { }
 
   getVacationDays(id) {
     return this.http.get(this.VACATIONDAYS_URL + id,
+      {
+        headers: this.createAuthHeaders('Kinvey')
+      });
+  }
+
+  getAllVacations(id) {
+    return this.http.get(this.VACATIONS_URL + `?query={"createdBy": "${id}"}`,
+    {
+      headers: this.createAuthHeaders('Kinvey')
+    });
+  }
+
+  setVacationDays(id, daysLeft: number) {
+    const form = {'daysLeft': daysLeft};
+    return this.http.put (this.VACATIONDAYS_URL + id, 
+      JSON.stringify(form),
+      {
+        headers: this.createAuthHeaders('Kinvey')
+      });
+  }
+
+  requestVacation(form: VacationModel) {
+    return this.http.post(this.VACATIONS_URL, JSON.stringify(form),
       {
         headers: this.createAuthHeaders('Kinvey')
       });

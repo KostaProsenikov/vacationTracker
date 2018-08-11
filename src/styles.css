@@ -7,7 +7,7 @@
 }
 
 .formVacation {
-    margin-top: 42px;
+    margin-top: 95px;
 }
 .formVacation mat-label {
     font-weight: 600;
@@ -26,4 +26,14 @@
 .endDatePicker {
     position: absolute !important;
     margin-left: 294px;
+}
+.formError {
+    position: absolute;
+    margin-top: 5px;
+}
+.vacations {
+    position: relative;
+    margin-top: 32px;
+    font-weight: 600;
+    margin-bottom: 40px;
 }
