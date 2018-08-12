@@ -34,7 +34,7 @@
       <button mat-raised-button class="requestBtn" color="primary" matBadge="{{user.daysLeft}}" 
       matBadgePosition="after" matBadgeColor="accent" 
       [disabled]="vacationForm.value.startDate === '' || vacationForm.value.endDate === ''
-                  || this.errorMsg !== ''">
+                  || this.errorMsg !== '' || user.daysLeft <= 0">
         Request Vacation
       </button>
     </div>

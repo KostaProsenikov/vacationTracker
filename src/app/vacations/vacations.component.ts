@@ -17,7 +17,6 @@ export class VacationsComponent implements OnInit {
 
   @Input() set refreshVacations(refreshVacations: string) {
     if (refreshVacations) {
-      console.log('here');
       this.getAllVacations();
     }
   }
