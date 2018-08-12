@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '../../../node_modules/@angular/platform-browser';
 import { VacationService } from '../services/vacation.service';
 import { UserModel } from '../models/user.model';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import * as _moment from 'moment';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MyDateAdapter } from '../adapters/date_adapter';
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   errorMsg: string;
   daysTaken: number;
   id    = localStorage.getItem('id');
-  vacationsArray = [];
+  refreshTrigger: string;
 
   constructor(private vacationService: VacationService,
               private formBuilder: FormBuilder) 
@@ -35,7 +35,6 @@ export class HomeComponent implements OnInit {
     this.vacationFormInitialize();
     this.getVacationDays();
     this.onChanges();
-    this.getAllVacations();
   }
 
   getVacationDays() {
@@ -52,18 +51,6 @@ export class HomeComponent implements OnInit {
       endDate:   new FormControl({value: '', disabled: true }, [Validators.required]),
       daysTaken: new FormControl({value: 0, disabled: true })
     });
-  }
-
-  getAllVacations() {
-    this.vacationService.getAllVacations(this.id).subscribe(
-      (res) => this.onSuccessGetVacations(res),
-      (err) => this.onError(err)
-    )
-  }
-
-  onSuccessGetVacations(res): any {
-    //  console.log('res', res);
-     this.vacationsArray = res;
   }
 
   onChanges() {
@@ -83,8 +70,11 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit(form) {
-    form.daysTaken = this.daysTaken;
-    form.createdBy = this.id;
+    form.daysTaken   = this.daysTaken;
+    form.createdBy   = this.id;
+    form.isApproved  = false;
+    form.isCancelled = false;
+    form.approvedBy  = '';
     // console.log('form', form);
     this.vacationService.requestVacation(form).subscribe(
       (res) => this.onSuccessRequestVacation(res),
@@ -95,6 +85,8 @@ export class HomeComponent implements OnInit {
   onSuccessRequestVacation(res): any {
      const id = localStorage.getItem('id');
      const daysLeft = this.user.daysLeft - this.daysTaken;
+     this.refreshTrigger = daysLeft.toString();
+     this.vacationFormInitialize();
      this.vacationService.setVacationDays(id, daysLeft).subscribe(
       (res) => this.onSuccessSetDays(res),
       (err) => this.onError(err)

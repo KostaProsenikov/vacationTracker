@@ -1,0 +1,10 @@
+<div *ngIf="vacationsArray" class="vacations">
+  <h2>Previous Vacations</h2>
+  <li *ngFor="let vacation of previousVacations">
+      Start Date:  {{ vacation.startDate | date }} - EndDate:  {{ vacation.endDate | date }} - Days:  {{ vacation.daysTaken }}
+  </li>
+  <h2>Next Vacations</h2>
+  <li *ngFor="let vacation of nextVacations">
+     Start Date:  {{ vacation.startDate | date }} - EndDate:  {{ vacation.endDate | date }} - Days:  {{ vacation.daysTaken }}
+  </li>
+</div>

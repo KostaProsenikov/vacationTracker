@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { DisableControlDirective } from './directives/disableControl.directive';
+import { VacationsComponent } from './vacations/vacations.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { DisableControlDirective } from './directives/disableControl.directive';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    VacationsComponent,
   ],
   imports: [
     BrowserModule,
