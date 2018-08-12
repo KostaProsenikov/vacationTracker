@@ -1,7 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { VacationService } from '../services/vacation.service';
 import * as _moment from 'moment';
+import { MatTableDataSource } from '../../../node_modules/@angular/material/table';
 const moment = _moment;
+
+// const ELEMENT_DATA: VacationModel[] = [];
 
 @Component({
   selector: 'app-vacations',
@@ -10,10 +13,13 @@ const moment = _moment;
 })
 export class VacationsComponent implements OnInit {
 
-  vacationsArray = [];
-  id             = localStorage.getItem('id');
+  vacationsArray    = [];
+  id                = localStorage.getItem('id');
   previousVacations = [];
   nextVacations     = [];
+  displayedColumns  = ['startDate', 'endDate', 'daysTaken', 'isApproved'];
+  dataSource        = new MatTableDataSource();
+  dataSource1       = new MatTableDataSource();
 
   @Input() set refreshVacations(refreshVacations: string) {
     if (refreshVacations) {
@@ -34,6 +40,10 @@ export class VacationsComponent implements OnInit {
     )
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   onSuccessGetVacations(res): any {
     //  console.log('res', res);
      this.vacationsArray = res;
@@ -51,6 +61,8 @@ export class VacationsComponent implements OnInit {
          this.nextVacations.push(element);
        }
      }
+     this.dataSource   = new MatTableDataSource(this.previousVacations);
+     this.dataSource1  = new MatTableDataSource(this.nextVacations);
   }
 
   onError(err): any {

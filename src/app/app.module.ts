@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { DisableControlDirective } from './directives/disableControl.directive';
+import { MatTableModule } from '@angular/material/table';
 import { VacationsComponent } from './vacations/vacations.component';
 
 @NgModule({
@@ -49,7 +50,8 @@ import { VacationsComponent } from './vacations/vacations.component';
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule
   ],
   exports: [ 
     MatButtonModule, 
@@ -60,7 +62,8 @@ import { VacationsComponent } from './vacations/vacations.component';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule
   ],
   providers: [ AuthService, MatNativeDateModule ],
   bootstrap: [ AppComponent ]
