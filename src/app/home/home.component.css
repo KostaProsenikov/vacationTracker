@@ -1,0 +1,10 @@
+.vacationBtn {
+    position: relative;
+    margin-top: 35px;
+}
+.vacBtnleft {
+    margin-left: 20px;
+}
+.vacationBtn:hover {
+    text-decoration: unset;
+}

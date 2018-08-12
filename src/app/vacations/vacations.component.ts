@@ -17,7 +17,7 @@ export class VacationsComponent implements OnInit {
   id                = localStorage.getItem('id');
   previousVacations = [];
   nextVacations     = [];
-  displayedColumns  = ['startDate', 'endDate', 'daysTaken', 'isApproved'];
+  displayedColumns  = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'reason'];
   dataSource        = new MatTableDataSource();
   dataSource1       = new MatTableDataSource();
 
@@ -40,8 +40,14 @@ export class VacationsComponent implements OnInit {
     )
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(filterValue: string, dataSource) {
+    if (dataSource === 'dataSource1') {
+      this.dataSource1.filter = filterValue.trim().toLowerCase();
+      console.log('data', this.dataSource1.filter);
+    } else {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      console.log('there', this.dataSource.filter);
+    }
   }
 
   onSuccessGetVacations(res): any {
@@ -54,6 +60,10 @@ export class VacationsComponent implements OnInit {
       //  console.log('el', element);
        const startDate = moment(element.startDate);
        const today     = moment(Date.now());
+       const startDateFormatted = moment(element.startDate).format('DD.MM.YYYY');
+       const endDateFormatted   = moment(element.endDate)  .format('DD.MM.YYYY');
+       element.startDate = startDateFormatted;
+       element.endDate   = endDateFormatted;
        let daysDiff  = startDate.diff(today, 'days');
        if (daysDiff <= 0) {
          this.previousVacations.push(element);
