@@ -20,11 +20,13 @@ const moment = _moment;
 export class HomeComponent implements OnInit {
   vacationForm: FormGroup;
   user: UserModel;
-  color = 'primary';
-  mode  = 'indeterminate';
-  errorMsg: string;
-  daysTaken: number;
-  id    = localStorage.getItem('id');
+  color    = 'primary';
+  mode     = 'indeterminate';
+  minDate   = new Date(Date.now());
+  minDate1  = new Date(Date.now());
+  id       = localStorage.getItem('id');
+  errorMsg:       string;
+  daysTaken:      number;
   refreshTrigger: string;
 
   constructor(private vacationService: VacationService,
@@ -55,6 +57,10 @@ export class HomeComponent implements OnInit {
 
   onChanges() {
     this.vacationForm.valueChanges.subscribe( (val) => {
+      const date = moment(val['startDate']);
+      this.minDate1 = new Date(moment.utc(date).toDate());
+
+      console.log('date', this.minDate1);
       if (val['startDate'] && val['endDate']) {
          const startDate = moment(val['startDate']);
          const endDate   = moment(val['endDate']);

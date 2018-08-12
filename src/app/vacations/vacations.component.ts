@@ -38,7 +38,8 @@ export class VacationsComponent implements OnInit {
   onSuccessGetVacations(res): any {
     //  console.log('res', res);
      this.vacationsArray = res;
-
+     this.nextVacations = [];
+     this.previousVacations = [];
      for (let index = 0; index < this.vacationsArray.length; index++) {
        const element = this.vacationsArray[index];
       //  console.log('el', element);
@@ -50,7 +51,6 @@ export class VacationsComponent implements OnInit {
        } else {
          this.nextVacations.push(element);
        }
-      //  console.log('days', daysDiff)
      }
   }
 

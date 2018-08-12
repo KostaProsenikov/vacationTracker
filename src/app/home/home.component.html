@@ -19,13 +19,13 @@
     <div class="row formVacation">  
       <mat-label class="startLabel">Start Date</mat-label>
       <mat-form-field class="example-full-width">
-        <input matInput [matDatepicker]="picker"  formControlName="startDate" placeholder="Choose a start date">
+        <input matInput [matDatepicker]="picker"  formControlName="startDate" [min]="minDate" placeholder="Choose a start date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
       </mat-form-field>
       <mat-label class="endLabel">End Date</mat-label>
       <mat-form-field class="example-full-width endDatePicker">
-          <input matInput [matDatepicker]="picker2" formControlName="endDate" placeholder="Choose an end date">
+          <input matInput [matDatepicker]="picker2" formControlName="endDate" [min]="minDate1" placeholder="Choose an end date">
           <mat-datepicker-toggle matSuffix [for]="picker2" ></mat-datepicker-toggle>
           <mat-datepicker touchUi #picker2 disabled="false"></mat-datepicker>
       </mat-form-field>
