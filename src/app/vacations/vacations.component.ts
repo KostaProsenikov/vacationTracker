@@ -5,7 +5,6 @@ import { MatTableDataSource } from '../../../node_modules/@angular/material/tabl
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '../../../node_modules/@angular/material/dialog';
 import { DialogData } from './dialogData';
 import { VacationModel } from '../models/vacation.model';
-import { UserModel } from '../models/user.model';
 const moment = _moment;
 
 // const ELEMENT_DATA: VacationModel[] = [];
@@ -21,8 +20,8 @@ export class VacationsComponent implements OnInit {
   vacationsArray        = [];
   previousVacations     = [];
   nextVacations         = [];
-  displayedColumns      = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'reason', 'cancellation'];
-  displayedColumnsPrev  = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'reason'];
+  displayedColumns      = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'approvedBy', 'reason', 'cancellation'];
+  displayedColumnsPrev  = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'approvedBy', 'reason'];
   dataSource            = new MatTableDataSource();
   dataSource1           = new MatTableDataSource();
 
