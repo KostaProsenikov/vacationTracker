@@ -2,3 +2,14 @@
     width: 100%;
     margin-bottom: 50px;
 }
+.btnMargin {
+    position: relative;
+    margin-left: 15px;
+}
+.cancelBtn {
+    background-color: #8BC34A;
+}
+h3.dialogTitle {
+    /* text-transform: capitalize; */
+    font-weight: 500;
+}

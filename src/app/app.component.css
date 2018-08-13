@@ -1,8 +1,14 @@
 * {
     font-family: 'Montserrat', sans-serif;
 }
-
 .container {
     margin-top: 40px;
     margin-left: 65px;
+}
+dialog-overview-example-dialog h3 {
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+.btnMargin {
+    margin-left: 15px;
 }

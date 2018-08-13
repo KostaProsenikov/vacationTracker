@@ -3,6 +3,7 @@ import { VacationService } from '../services/vacation.service';
 import * as _moment from 'moment';
 import { MatTableDataSource } from '../../../node_modules/@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '../../../node_modules/@angular/material/dialog';
+import { DialogData } from './dialogData';
 const moment = _moment;
 
 // const ELEMENT_DATA: VacationModel[] = [];
@@ -22,7 +23,7 @@ export class VacationsComponent implements OnInit {
   displayedColumnsPrev  = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'reason'];
   dataSource            = new MatTableDataSource();
   dataSource1           = new MatTableDataSource();
-  cancelled             
+  cancelledVacations    = [];
 
   @Input() set refreshVacations(refreshVacations: string) {
     if (refreshVacations) {
@@ -44,13 +45,15 @@ export class VacationsComponent implements OnInit {
     )
   }
 
-  openDialog(): void {
+  openDialog(element): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '250px'
+      width: '300px',
+      data: element
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The dialog was closed', result);
+      this.cancelledVacations.push(result);
     });
   }
 
@@ -58,10 +61,8 @@ export class VacationsComponent implements OnInit {
   applyFilter(filterValue: string, dataSource) {
     if (dataSource === 'dataSource1') {
       this.dataSource1.filter = filterValue.trim().toLowerCase();
-      // console.log('data', this.dataSource1.filter);
     } else {
       this.dataSource.filter = filterValue.trim().toLowerCase();
-      // console.log('there', this.dataSource.filter);
     }
   }
 
@@ -99,13 +100,14 @@ export class VacationsComponent implements OnInit {
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'dialog-overview-example-dialog.html',
+  styleUrls: ['./vacations.component.css']
 })
 
 export class DialogOverviewExampleDialog {
 
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   onNoClick(): void {
     this.dialogRef.close();

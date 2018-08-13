@@ -42,10 +42,10 @@
       <th mat-header-cell *matHeaderCellDef> Cancellation </th>
       <td mat-cell *matCellDef="let element">
         <ng-container *ngIf="!element.isCancelled">
-          <button mat-raised-button (click)="openDialog()">Cancel Vacation</button>
+          <button mat-raised-button (click)="openDialog(element)">Cancel Vacation</button>
         </ng-container>
         <span *ngIf="element.isCancelled">
-        Cancelled!
+          Cancelled!
         </span> 
     </td>
     </ng-container> 

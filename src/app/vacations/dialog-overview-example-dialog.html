@@ -1,7 +1,7 @@
-<h1 mat-dialog-title>Cancel Request</h1>
+<h3 mat-dialog-title class="dialogTitle">Cancel Vacation</h3>
 <div mat-dialog-content>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  <button mat-flat-button class="cancelBtn" (click)="onNoClick()">No Thanks</button>
+  <button mat-flat-button class="btnMargin" color="warn" [mat-dialog-close]="data" cdkFocusInitial>Cancel Vacation!</button>
 </div>
