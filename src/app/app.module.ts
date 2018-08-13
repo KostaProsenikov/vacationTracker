@@ -13,7 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './authentication/auth-service/auth-service.service';
-import { MatButtonModule, MatCheckboxModule, MatBadgeModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatBadgeModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule }  from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -22,7 +22,8 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { DisableControlDirective } from './directives/disableControl.directive';
 import { MatTableModule } from '@angular/material/table';
-import { VacationsComponent } from './vacations/vacations.component';
+import { VacationsComponent, DialogOverviewExampleDialog } from './vacations/vacations.component';
+import { MatDialogModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { VacationsComponent } from './vacations/vacations.component';
     RegisterComponent,
     HomeComponent,
     VacationsComponent,
+    DialogOverviewExampleDialog
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import { VacationsComponent } from './vacations/vacations.component';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ],
   exports: [ 
     MatButtonModule, 
@@ -63,9 +66,11 @@ import { VacationsComponent } from './vacations/vacations.component';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ],
-  providers: [ AuthService, MatNativeDateModule ],
+  entryComponents: [ DialogOverviewExampleDialog ],
+  providers: [ AuthService, MatNativeDateModule, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}} ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

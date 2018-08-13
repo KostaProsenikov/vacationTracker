@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject, Optional } from '@angular/core';
 import { VacationService } from '../services/vacation.service';
 import * as _moment from 'moment';
 import { MatTableDataSource } from '../../../node_modules/@angular/material/table';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '../../../node_modules/@angular/material/dialog';
 const moment = _moment;
 
 // const ELEMENT_DATA: VacationModel[] = [];
@@ -13,13 +14,15 @@ const moment = _moment;
 })
 export class VacationsComponent implements OnInit {
 
-  vacationsArray    = [];
-  id                = localStorage.getItem('id');
-  previousVacations = [];
-  nextVacations     = [];
-  displayedColumns  = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'reason'];
-  dataSource        = new MatTableDataSource();
-  dataSource1       = new MatTableDataSource();
+  vacationsArray        = [];
+  id                    = localStorage.getItem('id');
+  previousVacations     = [];
+  nextVacations         = [];
+  displayedColumns      = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'reason', 'cancellation'];
+  displayedColumnsPrev  = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'reason'];
+  dataSource            = new MatTableDataSource();
+  dataSource1           = new MatTableDataSource();
+  cancelled             
 
   @Input() set refreshVacations(refreshVacations: string) {
     if (refreshVacations) {
@@ -27,7 +30,8 @@ export class VacationsComponent implements OnInit {
     }
   }
   
-  constructor(private vacationService: VacationService) { }
+  constructor(private vacationService: VacationService,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
       this.getAllVacations();
@@ -40,13 +44,24 @@ export class VacationsComponent implements OnInit {
     )
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+
   applyFilter(filterValue: string, dataSource) {
     if (dataSource === 'dataSource1') {
       this.dataSource1.filter = filterValue.trim().toLowerCase();
-      console.log('data', this.dataSource1.filter);
+      // console.log('data', this.dataSource1.filter);
     } else {
       this.dataSource.filter = filterValue.trim().toLowerCase();
-      console.log('there', this.dataSource.filter);
+      // console.log('there', this.dataSource.filter);
     }
   }
 
@@ -77,6 +92,23 @@ export class VacationsComponent implements OnInit {
 
   onError(err): any {
     console.log('err', err);
+  }
+
+}
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'dialog-overview-example-dialog.html',
+})
+
+export class DialogOverviewExampleDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }
