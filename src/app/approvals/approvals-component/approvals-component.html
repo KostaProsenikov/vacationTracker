@@ -1,3 +1,64 @@
-<p>
-  approvals-component works!
-</p>
+<div *ngIf="dataSource" class="vacations">
+    <h2>Awaiting Approvals</h2>
+    <mat-form-field>
+      <input matInput name="search1" (keyup)="applyFilter($event.target.value, 'dataSource1')" placeholder="Filter">
+    </mat-form-field>
+      
+    <table mat-table [dataSource]="dataSource" class="vacationsTable">
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+      <!-- StartDate Column -->
+      <ng-container matColumnDef="startDate">
+        <th mat-header-cell *matHeaderCellDef> Start Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.startDateFormatted}} </td>
+      </ng-container>
+    
+      <!-- EndDate Column -->
+      <ng-container matColumnDef="endDate">
+        <th mat-header-cell *matHeaderCellDef> End Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.endDateFormatted}} </td>
+      </ng-container>
+    
+      <!-- DaysTaken Column -->
+        <ng-container matColumnDef="daysTaken">
+        <th mat-header-cell *matHeaderCellDef> Days </th>
+        <td mat-cell *matCellDef="let element"> {{element.daysTaken}} </td>
+        </ng-container>
+    
+      <!-- IsApproved Column -->
+      <ng-container matColumnDef="isApproved">
+        <th mat-header-cell *matHeaderCellDef> Approved </th>
+        <td mat-cell *matCellDef="let element"> {{element.isApproved}} </td>
+      </ng-container> 
+  
+      <!-- IsApproved Column -->
+      <ng-container matColumnDef="approvedBy">
+          <th mat-header-cell *matHeaderCellDef> Approved By </th>
+          <td mat-cell *matCellDef="let element"> {{element.approvedBy}} </td>
+      </ng-container> 
+  
+      <!-- Reason Column -->
+      <ng-container matColumnDef="reason">
+        <th mat-header-cell *matHeaderCellDef> Reason </th>
+        <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
+      </ng-container> 
+  
+      <ng-container  matColumnDef="cancellation">
+        <th mat-header-cell *matHeaderCellDef> Cancellation </th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="!element.isCancelled">
+            <button mat-raised-button color="warn" (click)="openDialog(element)">Cancel Vacation</button>
+          </ng-container>
+          <span *ngIf="element.isCancelled">
+            Cancelled!
+          </span> 
+      </td>
+      </ng-container> 
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+      [ngClass]="{'red' : row.isCancelled, 'approved' : row.isApproved && !row.isCancelled}" >
+      </tr>
+    </table>
+  </div>

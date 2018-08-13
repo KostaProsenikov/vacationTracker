@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Inject, Optional } from '@angular/core';
 import { VacationService } from '../services/vacation.service';
-import * as _moment from 'moment';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from './dialogData';
 import { VacationModel } from '../models/vacation.model';
+import * as _moment from 'moment';
 const moment = _moment;
 
 // const ELEMENT_DATA: VacationModel[] = [];

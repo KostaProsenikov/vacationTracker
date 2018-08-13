@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '
 import { VacationService } from '../services/vacation.service';
 import { UserModel } from '../models/user.model';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import * as _moment from 'moment';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MyDateAdapter } from '../adapters/date_adapter';
 import { Subscription } from 'rxjs';
+import * as _moment from 'moment';
 const moment = _moment;
 
 @Component({
