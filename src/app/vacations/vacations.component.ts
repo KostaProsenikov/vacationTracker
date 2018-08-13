@@ -87,7 +87,8 @@ export class VacationsComponent implements OnInit {
          this.nextVacations.push(element);
        }
      }
-     this.dataSource   = new MatTableDataSource(this.previousVacations);
+     const prevVacationsReversed = this.previousVacations.reverse();
+     this.dataSource   = new MatTableDataSource(prevVacationsReversed);
      this.dataSource1  = new MatTableDataSource(this.nextVacations);
   }
 
@@ -98,9 +99,9 @@ export class VacationsComponent implements OnInit {
 }
 
 @Component({
-  selector: 'dialog-overview-example-dialog',
+  selector:    'dialog-overview-example-dialog',
   templateUrl: 'dialog-overview-example-dialog.html',
-  styleUrls: ['./vacations.component.css']
+  styleUrls:   ['./vacations.component.css']
 })
 
 export class DialogOverviewExampleDialog {

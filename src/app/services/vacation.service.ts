@@ -21,7 +21,7 @@ export class VacationService {
   }
 
   getAllVacations(id) {
-    return this.http.get(this.VACATIONS_URL + `?query={"createdBy": "${id}"}`,
+    return this.http.get(this.VACATIONS_URL + `?query={"createdBy": "${id}"}&sort={"startDate": 1}`,
     {
       headers: this.createAuthHeaders('Kinvey')
     });
