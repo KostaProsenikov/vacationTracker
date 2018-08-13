@@ -92,8 +92,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form) {
-    // console.log('-------------------------');
-    // console.log('daysTaken before', this.daysTaken);
     for (let index = moment(form.startDate); index <= moment(form.endDate); index.add(1, 'days')) {
       const currentDay = index;
       // Remove Saturday and Sunday from counter of days
@@ -101,15 +99,13 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
         this.daysTaken--;
       }
     }
-    // console.log('daysTaken after', this.daysTaken);
-    // console.log('-------------------------');
 
     form.daysTaken   = this.daysTaken;
     form.createdBy   = this.id;
     form.isApproved  = false;
     form.isCancelled = false;
     form.approvedBy  = '';
-    // console.log('form', form.daysTaken);
+
     this.vacationService.requestVacation(form).subscribe(
       (res) => this.onSuccessRequestVacation(res),
       (err) => this.onError(err)

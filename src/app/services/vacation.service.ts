@@ -27,6 +27,14 @@ export class VacationService {
     });
   }
 
+  cancelVacation(vacationObj: VacationModel) {
+    return this.http.put(this.VACATIONS_URL + vacationObj._id, 
+      JSON.stringify(vacationObj),
+      {
+        headers: this.createAuthHeaders('Kinvey')
+      });
+  }
+
   setVacationDays(id, daysLeft: number) {
     const form = {'daysLeft': daysLeft};
     return this.http.put (this.VACATIONDAYS_URL + id, 

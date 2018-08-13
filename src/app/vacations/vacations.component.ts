@@ -4,6 +4,8 @@ import * as _moment from 'moment';
 import { MatTableDataSource } from '../../../node_modules/@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '../../../node_modules/@angular/material/dialog';
 import { DialogData } from './dialogData';
+import { VacationModel } from '../models/vacation.model';
+import { UserModel } from '../models/user.model';
 const moment = _moment;
 
 // const ELEMENT_DATA: VacationModel[] = [];
@@ -15,15 +17,14 @@ const moment = _moment;
 })
 export class VacationsComponent implements OnInit {
 
-  vacationsArray        = [];
   id                    = localStorage.getItem('id');
+  vacationsArray        = [];
   previousVacations     = [];
   nextVacations         = [];
   displayedColumns      = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'reason', 'cancellation'];
   displayedColumnsPrev  = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'reason'];
   dataSource            = new MatTableDataSource();
   dataSource1           = new MatTableDataSource();
-  cancelledVacations    = [];
 
   @Input() set refreshVacations(refreshVacations: string) {
     if (refreshVacations) {
@@ -51,10 +52,42 @@ export class VacationsComponent implements OnInit {
       data: element
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-      this.cancelledVacations.push(result);
+    dialogRef.afterClosed().subscribe( (result: VacationModel)  => {
+      if (result) {
+        result.isCancelled = true;
+        const copiedResult = Object.assign({}, result);
+        delete copiedResult['startDateFormatted'];
+        delete copiedResult['endDateFormatted'];
+        // console.log('here', copiedResult);
+        this.vacationService.cancelVacation(copiedResult).subscribe((res) => {
+          this.onSuccessCancelVacation(res),
+          (err) => this.onError(err)
+        });
+      }
     });
+  }
+
+  onSuccessCancelVacation(res) {
+    const daysTaken = res.daysTaken;
+    this.vacationService.getVacationDays(this.id).subscribe(
+      (res) => this.onSuccessGetDaysLeft(res, daysTaken),
+      (err) => this.onError(err)
+    );
+  
+  }
+
+  onSuccessGetDaysLeft(res, daysTaken: number) {
+    // console.log('beforeDays', res);
+    const user = res;
+    const daysLeft = Number(user.daysLeft) + daysTaken;
+    this.vacationService.setVacationDays(this.id, daysLeft).subscribe(
+      (result) => this.onSuccessSetDays(result),
+      (err) => this.onError(err)
+    );
+  }
+
+  onSuccessSetDays(res) {
+    // console.log('resultDays', res);
   }
 
 
@@ -72,20 +105,23 @@ export class VacationsComponent implements OnInit {
      this.nextVacations = [];
      this.previousVacations = [];
      for (let index = 0; index < this.vacationsArray.length; index++) {
+      
        const element = this.vacationsArray[index];
       //  console.log('el', element);
-       const startDate = moment(element.startDate);
-       const today     = moment(Date.now());
-       const startDateFormatted = moment(element.startDate).format('DD.MM.YYYY');
-       const endDateFormatted   = moment(element.endDate)  .format('DD.MM.YYYY');
-       element.startDate = startDateFormatted;
-       element.endDate   = endDateFormatted;
-       let daysDiff  = startDate.diff(today, 'days');
-       if (daysDiff <= 0) {
-         this.previousVacations.push(element);
-       } else {
-         this.nextVacations.push(element);
-       }
+      if (element.startDate) {
+        const startDate = moment(element.startDate);
+        const today     = moment(Date.now());
+        const startDateFormatted = moment(element.startDate).format('DD.MM.YYYY');
+        const endDateFormatted   = moment(element.endDate)  .format('DD.MM.YYYY');
+        element.startDateFormatted = startDateFormatted;
+        element.endDateFormatted   = endDateFormatted;
+        let daysDiff  = startDate.diff(today, 'days');
+        if (daysDiff <= 0) {
+          this.previousVacations.push(element);
+        } else {
+          this.nextVacations.push(element);
+        }
+      }
      }
      const prevVacationsReversed = this.previousVacations.reverse();
      this.dataSource   = new MatTableDataSource(prevVacationsReversed);
