@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Inject, Optional } from '@angular/core';
 import { VacationService } from '../services/vacation.service';
 import * as _moment from 'moment';
-import { MatTableDataSource } from '../../../node_modules/@angular/material/table';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '../../../node_modules/@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from './dialogData';
 import { VacationModel } from '../models/vacation.model';
 const moment = _moment;

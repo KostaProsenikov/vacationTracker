@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../authentication/auth-service/auth-service.service';
-import { Router, NavigationEnd } from '../../../../node_modules/@angular/router';
-import { Subscription } from '../../../../node_modules/rxjs';
+import { Router, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-nav-component',
@@ -12,6 +12,7 @@ export class NavComponentComponent implements OnInit, OnDestroy {
 
   username: string;
   subscription: Subscription;
+  approvals = 12;
 
   constructor(private authService: AuthService,
               private router: Router) 

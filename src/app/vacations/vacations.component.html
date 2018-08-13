@@ -57,7 +57,7 @@
     </ng-container> 
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'red' : row.isCancelled}" ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'red' : row.isCancelled, 'approved' : row.isApproved && !row.isCancelled}" ></tr>
   </table>
 </div>
 
@@ -101,7 +101,7 @@
     </ng-container> 
   
     <tr mat-header-row *matHeaderRowDef="displayedColumnsPrev"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumnsPrev;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsPrev;" [ngClass]="{'red' : row.isCancelled, 'approved' : row.isApproved && !row.isCancelled}"></tr>
 
   </table>
 </div>

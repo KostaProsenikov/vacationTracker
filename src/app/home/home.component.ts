@@ -5,7 +5,7 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import * as _moment from 'moment';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MyDateAdapter } from '../adapters/date_adapter';
-import { Subscription } from '../../../node_modules/rxjs';
+import { Subscription } from 'rxjs';
 const moment = _moment;
 
 @Component({

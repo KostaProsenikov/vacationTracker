@@ -1,6 +1,6 @@
 import {NativeDateAdapter} from '@angular/material';
 import {Injectable}        from '@angular/core';
-import { Platform } from '../../../node_modules/@angular/cdk/platform';
+import { Platform } from '@angular/cdk/platform';
 
 @Injectable()
 export class MyDateAdapter extends NativeDateAdapter {

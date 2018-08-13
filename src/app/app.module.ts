@@ -24,6 +24,7 @@ import { DisableControlDirective } from './directives/disableControl.directive';
 import { MatTableModule } from '@angular/material/table';
 import { VacationsComponent, DialogOverviewExampleDialog } from './vacations/vacations.component';
 import { MatDialogModule } from '@angular/material';
+import { ApprovalsComponent } from './approvals/approvals-component/approvals-component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MatDialogModule } from '@angular/material';
     RegisterComponent,
     HomeComponent,
     VacationsComponent,
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    ApprovalsComponent
   ],
   imports: [
     BrowserModule,
