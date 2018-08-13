@@ -16,9 +16,9 @@ export class ApprovalService {
   constructor(private http: HttpClient) { }
 
   getPendingApprovals() {
-    const today = moment(Date.now()).toISOString();
+    const today = moment(Date.now()).format('YYYY-MM-DD');
     return this.http.get(this.VACATIONS_URL + 
-      `?query{'isApproved' : false, 'isCancelled' : false, 'startDate': {"$gt": "ISODate(\"${today}\")"}}&sort={"startDate": 1}`,
+      `?query={"isCancelled": false, "isApproved": false, "startDate": {\"$gte\": \"${today}\"}}&sort={"startDate": 1}`,
       {
         headers: this.createAuthHeaders('Kinvey')
       });

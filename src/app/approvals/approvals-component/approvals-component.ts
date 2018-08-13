@@ -11,7 +11,7 @@ const moment = _moment;
 })
 export class ApprovalsComponent implements OnInit {
   dataSource: any;
-  displayedColumns = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'approvedBy', 'reason', 'cancellation'];
+  displayedColumns = ['startDate', 'endDate', 'daysTaken', 'isApproved', 'reason', 'approval'];
   awaitingApprovals = [];
 
 

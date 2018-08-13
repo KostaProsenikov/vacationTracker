@@ -32,26 +32,21 @@
         <td mat-cell *matCellDef="let element"> {{element.isApproved}} </td>
       </ng-container> 
   
-      <!-- IsApproved Column -->
-      <ng-container matColumnDef="approvedBy">
-          <th mat-header-cell *matHeaderCellDef> Approved By </th>
-          <td mat-cell *matCellDef="let element"> {{element.approvedBy}} </td>
-      </ng-container> 
-  
       <!-- Reason Column -->
       <ng-container matColumnDef="reason">
-        <th mat-header-cell *matHeaderCellDef> Reason </th>
+        <th mat-header-cell *matHeaderCellDef> Vacation Reason </th>
         <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
       </ng-container> 
   
-      <ng-container  matColumnDef="cancellation">
-        <th mat-header-cell *matHeaderCellDef> Cancellation </th>
+      <ng-container  matColumnDef="approval">
+        <th mat-header-cell *matHeaderCellDef> Approval </th>
         <td mat-cell *matCellDef="let element">
-          <ng-container *ngIf="!element.isCancelled">
-            <button mat-raised-button color="warn" (click)="openDialog(element)">Cancel Vacation</button>
+          <ng-container *ngIf="!element.isApproved">
+            <button mat-raised-button class="btnSuccess" (click)="openDialog(element)">Approve Vacation</button>
+            <button mat-raised-button class="btnWarning" (click)="openDialog(element)">Reject Vacation</button>
           </ng-container>
-          <span *ngIf="element.isCancelled">
-            Cancelled!
+          <span *ngIf="element.isApproved">
+            Approved
           </span> 
       </td>
       </ng-container> 
