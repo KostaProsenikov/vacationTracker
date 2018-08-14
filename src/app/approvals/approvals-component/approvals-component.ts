@@ -24,6 +24,10 @@ export class ApprovalsComponent implements OnInit {
     );
   }
 
+  applyFilter(filterValue: string) {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   onSuccessGetApprovals(res) {
   //  console.log('res', res);
     for (let index = 0; index < res.length; index++) { 
@@ -38,6 +42,12 @@ export class ApprovalsComponent implements OnInit {
     }
     this.dataSource  = new MatTableDataSource(this.awaitingApprovals);
   }
+
+  approveRejectVacation(element, varBool: boolean) {
+    console.log('el', element, varBool);
+  }
+
+
   onError(err) {
     console.log('err', err);
   }

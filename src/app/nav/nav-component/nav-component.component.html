@@ -20,8 +20,8 @@
       <li class="nav-item"  *ngIf="!username">
         <a class="nav-link" [routerLink]="['/register']">Register</a>
       </li>
-      <li class="nav-item">
-          <a class="nav-link"[routerLink]="['/approvals']" *ngIf="username" 
+      <li class="nav-item" *ngIf="username && admin">
+          <a class="nav-link"[routerLink]="['/approvals']"
           matBadge="{{approvals}}" matBadgeColor="warn" matBadgePosition="after" >
             Approvals
           </a>

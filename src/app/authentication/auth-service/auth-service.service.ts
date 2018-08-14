@@ -18,6 +18,7 @@ export class AuthService {
   REGISTER_URL  = `https://baas.kinvey.com/user/${this.APPKEY}`;
   LOGIN_URL     = `https://baas.kinvey.com/user/${this.APPKEY}/login`;
   LOGOUT_URL    = `https://baas.kinvey.com/user/${this.APPKEY}/_logout`;
+  ROLES_URL     = `https://baas.kinvey.com/user/${this.APPKEY}/`;
 
   login(model: LoginModel) {
     return this.http.post(this.LOGIN_URL, 
@@ -54,6 +55,13 @@ export class AuthService {
     }
   }
 
+  getUserRoles(id: number) {
+    return this.http.get(this.ROLES_URL + id + '/roles',
+    {
+      headers: this.createAuthHeaders('Roles')
+    });
+  }
+
   set authtoken(value: string) {
     this.currentAuthToken = value;
   }
@@ -63,10 +71,30 @@ export class AuthService {
     return this.currentAuthToken === localStorage.getItem('authtoken');
   }
 
+  checkIfHR(): boolean {
+    if (localStorage.getItem('hr_role') === '50fa1b47-68ff-4ecb-b654-d8466620abd6'){
+        return true;
+    } 
+    return false;
+  }
+
+  checkIfAdmin(): boolean {
+    if (localStorage.getItem('administrator') === 'd3ecb240-cfad-4039-aad1-18ed7b11b721'){
+        return true;
+    } 
+    return false;
+  }
+
+
   private createAuthHeaders(type: string) : HttpHeaders {
     if (type === 'Basic') {
       return new HttpHeaders({
         'Authorization': `Basic ${btoa(`${this.APPKEY}:${this.APP_SECRET}`)}`,
+        'Content-Type': 'application/json'
+      })
+    } else if (type === 'Roles') {
+      return new HttpHeaders({
+        'Authorization': "Basic a2lkX1N5TTBwUjlybTo4MDI5YWUxZDVmZjI0ZTlkYWZiYWI3NmFhNzNlN2QxYg==",
         'Content-Type': 'application/json'
       })
     } else {

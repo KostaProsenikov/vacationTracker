@@ -11,6 +11,7 @@ export class ApprovalService {
   APPKEY           = 'kid_SyM0pR9rm';
   APP_SECRET       = '9de57fd6deaa4665a137f24199906832';
   VACATIONS_URL    = `https://baas.kinvey.com/appdata/${this.APPKEY}/vacations/`;
+  
 
 
   constructor(private http: HttpClient) { }
