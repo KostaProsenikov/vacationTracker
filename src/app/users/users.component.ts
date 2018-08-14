@@ -17,7 +17,7 @@ export class UsersComponent implements OnInit {
   vacationDaysForm: FormGroup;
 
   constructor(private userService: UsersService,
-              private formBuilder: FormBuilder,) { }
+              private formBuilder: FormBuilder ) { }
 
   ngOnInit() {
     this.getAllUsers();
@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
   vacationDaysFormInit() {
     this.vacationDaysForm = this.formBuilder.group({
       daysLeft:    0,
-    })
+    });
   }
 
   valueChange($event, element: UserModel) {
@@ -38,7 +38,7 @@ export class UsersComponent implements OnInit {
     this.userService.updateUser(userUpdated).subscribe(
       (res) => this.onUpdatedUser(res),
       (err) => this.onError(err)
-    )
+    );
   }
 
   onUpdatedUser(res) {
@@ -57,7 +57,7 @@ export class UsersComponent implements OnInit {
         this.dataSource   = new MatTableDataSource(this.users);
       },
       (err) => this.onError(err)
-    )
+    );
   }
 
   onError(err) {

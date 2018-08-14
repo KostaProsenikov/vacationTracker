@@ -30,7 +30,7 @@ export class VacationsComponent implements OnInit {
       this.getAllVacations();
     }
   }
-  
+
   constructor(private vacationService: VacationService,
               private dialog: MatDialog) { }
 
@@ -42,7 +42,7 @@ export class VacationsComponent implements OnInit {
     this.vacationService.getAllVacations(this.id).subscribe(
       (res) => this.onSuccessGetVacations(res),
       (err) => this.onError(err)
-    )
+    );
   }
 
   openDialog(element): void {
@@ -60,7 +60,8 @@ export class VacationsComponent implements OnInit {
         // console.log('here', copiedResult);
         this.vacationService.cancelVacation(copiedResult).subscribe((res) => {
           this.onSuccessCancelVacation(res),
-          (err) => this.onError(err)
+          // tslint:disable-next-line:no-unused-expression
+          (err) => this.onError(err);
         });
       }
     });
@@ -69,10 +70,10 @@ export class VacationsComponent implements OnInit {
   onSuccessCancelVacation(res) {
     const daysTaken = res.daysTaken;
     this.vacationService.getVacationDays(this.id).subscribe(
+      // tslint:disable-next-line:no-shadowed-variable
       (res) => this.onSuccessGetDaysLeft(res, daysTaken),
       (err) => this.onError(err)
     );
-  
   }
 
   onSuccessGetDaysLeft(res, daysTaken: number) {
@@ -104,7 +105,7 @@ export class VacationsComponent implements OnInit {
      this.nextVacations = [];
      this.previousVacations = [];
      for (let index = 0; index < this.vacationsArray.length; index++) {
-      
+
        const element = this.vacationsArray[index];
       //  console.log('el', element);
       if (element.startDate) {
@@ -114,7 +115,7 @@ export class VacationsComponent implements OnInit {
         const endDateFormatted   = moment(element.endDate)  .format('DD.MM.YYYY');
         element.startDateFormatted = startDateFormatted;
         element.endDateFormatted   = endDateFormatted;
-        let daysDiff  = startDate.diff(today, 'days');
+        const daysDiff  = startDate.diff(today, 'days');
         if (daysDiff <= 0) {
           this.previousVacations.push(element);
         } else {
@@ -134,11 +135,13 @@ export class VacationsComponent implements OnInit {
 }
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector:    'dialog-overview-example-dialog',
   templateUrl: 'dialog-overview-example-dialog.html',
   styleUrls:   ['./vacations.component.css']
 })
 
+// tslint:disable-next-line:component-class-suffix
 export class DialogOverviewExampleDialog {
 
   constructor(

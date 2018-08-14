@@ -20,24 +20,23 @@ export class NavComponentComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private approvalService: ApprovalService) 
-  {}
-  
+              private approvalService: ApprovalService) {}
+
   ngOnInit() {
     this.authService.currentMessage.subscribe((res) => {
-      if(res.length) {
+      if (res.length) {
         // console.log('api here', res);
         this.checkRoles();
       }
     });
     this.subscription = this.router.events.subscribe(event => {
-      if(event instanceof NavigationEnd) {
+      if (event instanceof NavigationEnd) {
         // if (this.authService.checkIfLogged()) {
           //  this.username = this.authService.getCurrentUser();
           this.username = localStorage.getItem('username');
           this.checkRoles();
-          if(this.admin) {
-            if(this.subscribe1) {
+          if (this.admin) {
+            if (this.subscribe1) {
               this.subscribe1.unsubscribe();
             }
             this.subscribe1 = this.approvalService.getPendingApprovals().subscribe(
@@ -63,7 +62,7 @@ export class NavComponentComponent implements OnInit, OnDestroy {
     this.authService.logout().subscribe(
       (res) => this.onSuccessLogout(res),
       (err) => this.onError(err)
-    )
+    );
   }
 
   onError(err) {

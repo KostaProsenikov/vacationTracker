@@ -39,7 +39,7 @@ export class ApprovalsComponent implements OnInit {
   onSuccessGetApprovals(res) {
   //  console.log('res', res);
     this.awaitingApprovals = [];
-    for (let index = 0; index < res.length; index++) { 
+    for (let index = 0; index < res.length; index++) {
       const element = res[index];
       if (element.startDate) {
         const startDateFormatted = moment(element.startDate).format('DD.MM.YYYY');
@@ -71,10 +71,10 @@ export class ApprovalsComponent implements OnInit {
             // console.log('result', result);
           },
           (err) => this.onError(err)
-        )
+        );
       },
       (err) => this.onError(err)
-    )
+    );
   }
 
 

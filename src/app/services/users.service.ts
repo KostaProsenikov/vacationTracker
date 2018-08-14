@@ -31,18 +31,18 @@ export class UsersService {
       });
   }
 
-  
-  private createAuthHeaders(type: string) : HttpHeaders {
+
+  private createAuthHeaders(type: string): HttpHeaders {
     if (type === 'Basic') {
       return new HttpHeaders({
         'Authorization': `Basic ${btoa(`${this.APPKEY}:${this.APP_SECRET}`)}`,
         'Content-Type': 'application/json'
-      })
+      });
     } else {
       return new HttpHeaders({
         'Authorization': `Kinvey ${localStorage.getItem('authtoken')}`,
         'Content-Type': 'application/json'
-      })
+      });
     }
   }
 

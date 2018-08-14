@@ -28,7 +28,7 @@ export class VacationService {
   }
 
   cancelVacation(vacationObj: VacationModel) {
-    return this.http.put(this.VACATIONS_URL + vacationObj._id, 
+    return this.http.put(this.VACATIONS_URL + vacationObj._id,
       JSON.stringify(vacationObj),
       {
         headers: this.createAuthHeaders('Kinvey')
@@ -37,7 +37,7 @@ export class VacationService {
 
   setVacationDays(id, daysLeft: number) {
     const form = {'daysLeft': daysLeft};
-    return this.http.put (this.VACATIONDAYS_URL + id, 
+    return this.http.put (this.VACATIONDAYS_URL + id,
       JSON.stringify(form),
       {
         headers: this.createAuthHeaders('Kinvey')
@@ -51,17 +51,17 @@ export class VacationService {
       });
   }
 
-  private createAuthHeaders(type: string) : HttpHeaders {
+  private createAuthHeaders(type: string): HttpHeaders {
     if (type === 'Basic') {
       return new HttpHeaders({
         'Authorization': `Basic ${btoa(`${this.APPKEY}:${this.APP_SECRET}`)}`,
         'Content-Type': 'application/json'
-      })
+      });
     } else {
       return new HttpHeaders({
         'Authorization': `Kinvey ${localStorage.getItem('authtoken')}`,
         'Content-Type': 'application/json'
-      })
+      });
     }
   }
 }

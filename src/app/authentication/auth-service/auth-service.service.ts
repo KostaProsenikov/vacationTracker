@@ -24,7 +24,7 @@ export class AuthService {
   currentMessage = this.messageSource.asObservable();
 
   login(model: LoginModel) {
-    return this.http.post(this.LOGIN_URL, 
+    return this.http.post(this.LOGIN_URL,
       JSON.stringify(model),
       {
         headers: this.createAuthHeaders('Basic')
@@ -32,11 +32,11 @@ export class AuthService {
   }
 
   changeMessage(message) {
-    this.messageSource.next(message)
+    this.messageSource.next(message);
   }
 
   register(model: RegisterModel) {
-    return this.http.post(this.REGISTER_URL, 
+    return this.http.post(this.REGISTER_URL,
       JSON.stringify(model),
     {
       headers: this.createAuthHeaders('Basic')
@@ -55,7 +55,7 @@ export class AuthService {
   }
 
   getCurrentUser(): string {
-    if(localStorage.getItem('username') && localStorage.getItem('authtoken')){
+    if (localStorage.getItem('username') && localStorage.getItem('authtoken')) {
       return localStorage.getItem('username');
     } else {
       return undefined;
@@ -79,36 +79,36 @@ export class AuthService {
   }
 
   checkIfHR(): boolean {
-    if (localStorage.getItem('hr_role') === '50fa1b47-68ff-4ecb-b654-d8466620abd6'){
+    if (localStorage.getItem('hr_role') === '50fa1b47-68ff-4ecb-b654-d8466620abd6') {
         return true;
-    } 
+    }
     return false;
   }
 
   checkIfAdmin(): boolean {
-    if (localStorage.getItem('administrator') === 'd3ecb240-cfad-4039-aad1-18ed7b11b721'){
+    if (localStorage.getItem('administrator') === 'd3ecb240-cfad-4039-aad1-18ed7b11b721') {
         return true;
-    } 
+    }
     return false;
   }
 
 
-  private createAuthHeaders(type: string) : HttpHeaders {
+  private createAuthHeaders(type: string): HttpHeaders {
     if (type === 'Basic') {
       return new HttpHeaders({
         'Authorization': `Basic ${btoa(`${this.APPKEY}:${this.APP_SECRET}`)}`,
         'Content-Type': 'application/json'
-      })
+      });
     } else if (type === 'Roles') {
       return new HttpHeaders({
-        'Authorization': "Basic a2lkX1N5TTBwUjlybTo4MDI5YWUxZDVmZjI0ZTlkYWZiYWI3NmFhNzNlN2QxYg==",
+        'Authorization': 'Basic a2lkX1N5TTBwUjlybTo4MDI5YWUxZDVmZjI0ZTlkYWZiYWI3NmFhNzNlN2QxYg==',
         'Content-Type': 'application/json'
-      })
+      });
     } else {
       return new HttpHeaders({
         'Authorization': `Kinvey ${localStorage.getItem('authtoken')}`,
         'Content-Type': 'application/json'
-      })
+      });
     }
   }
 }

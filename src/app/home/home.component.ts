@@ -33,8 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private vacationService: VacationService,
               private formBuilder: FormBuilder,
-              private cd: ChangeDetectorRef) 
-  { }
+              private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.vacationFormInitialize();
@@ -65,7 +64,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     });
     this.vacationCommentForm = this.formBuilder.group({
       reason:    reason,
-    })
+    });
     // console.log('this vacation', this.vacationForm, this.vacationCommentForm);
   }
 
@@ -83,7 +82,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       if (val['startDate'] !== '' && val['endDate'] !== '') {
         const startDate  = moment(val['startDate']);
         const endDate    = moment(val['endDate']);
-        let   daysDiff   = startDate.diff(endDate.add(1, 'days'), 'days');
+        const   daysDiff   = startDate.diff(endDate.add(1, 'days'), 'days');
         if (daysDiff > 0) {
           this.errorMsg = 'You cannot request days in the past!';
         } else {
@@ -100,7 +99,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form) {
-    for (let index = moment(form.startDate); index <= moment(form.endDate); index.add(1, 'days')) {
+    for (const index = moment(form.startDate); index <= moment(form.endDate); index.add(1, 'days')) {
       const currentDay = index;
       // Remove Saturday and Sunday from counter of days
       if (currentDay.day() === 6 || currentDay.day() === 0) {
@@ -130,6 +129,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
      this.vacationFormInitialize();
      this.onChanges();
      this.vacationService.setVacationDays(id, daysLeft).subscribe(
+      // tslint:disable-next-line:no-shadowed-variable
       (res) => this.onSuccessSetDays(res),
       (err) => this.onError(err)
     );

@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './authentication/auth-service/auth-service.service';
 import { MatButtonModule, MatCheckboxModule, MatBadgeModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule }  from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material';
@@ -48,7 +48,7 @@ import { UsersComponent } from './users/users.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatButtonModule, 
+    MatButtonModule,
     MatCheckboxModule,
     MatBadgeModule,
     MatIconModule,
@@ -60,8 +60,8 @@ import { UsersComponent } from './users/users.component';
     MatTableModule,
     MatDialogModule
   ],
-  exports: [ 
-    MatButtonModule, 
+  exports: [
+    MatButtonModule,
     MatCheckboxModule,
     MatBadgeModule,
     MatIconModule,

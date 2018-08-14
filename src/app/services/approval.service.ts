@@ -18,7 +18,7 @@ export class ApprovalService {
 
   getPendingApprovals() {
     const today = moment(Date.now()).format('YYYY-MM-DD');
-    return this.http.get(this.VACATIONS_URL + 
+    return this.http.get(this.VACATIONS_URL +
       `?query={"isCancelled": false, "isApproved": null, "startDate": {\"$gte\": \"${today}\"}}&sort={"startDate": 1}`,
     {
       headers: this.createAuthHeaders('Kinvey')
@@ -34,29 +34,29 @@ export class ApprovalService {
   }
 
   changeActiveVacationRequest(vacationReq: VacationModel) {
-    return this.http.put(this.VACATIONS_URL + vacationReq._id, 
+    return this.http.put(this.VACATIONS_URL + vacationReq._id,
       JSON.stringify(vacationReq),
     {
       headers: this.createAuthHeaders('Master')
     });
   }
 
-  private createAuthHeaders(type: string) : HttpHeaders {
+  private createAuthHeaders(type: string): HttpHeaders {
     if (type === 'Basic') {
       return new HttpHeaders({
         'Authorization': `Basic ${btoa(`${this.APPKEY}:${this.APP_SECRET}`)}`,
         'Content-Type': 'application/json'
-      })
+      });
     } else if (type === 'Master') {
       return new HttpHeaders({
         'Authorization': `Basic a2lkX1N5TTBwUjlybTo4MDI5YWUxZDVmZjI0ZTlkYWZiYWI3NmFhNzNlN2QxYg==`,
         'Content-Type': 'application/json'
-      })
+      });
     } else {
       return new HttpHeaders({
         'Authorization': `Kinvey ${localStorage.getItem('authtoken')}`,
         'Content-Type': 'application/json'
-      })
+      });
     }
   }
 }

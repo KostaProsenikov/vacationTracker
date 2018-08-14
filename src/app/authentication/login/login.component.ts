@@ -27,18 +27,19 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.login).subscribe(
       (res) => this.onSuccessLoginUser(res),
       (err) => this.onError(err)
-    )
+    );
   }
 
   onSuccessLoginUser(res) {
     // console.log('res', res);
     this.authService.getUserRoles(res['_id']).subscribe(
+      // tslint:disable-next-line:no-shadowed-variable
       (res) => this.onSuccessGetRoles(res),
       (err) => this.onError(err));
     this.authService.authtoken = res['_kmd']['authtoken'];
     localStorage.setItem('authtoken', res['_kmd']['authtoken']);
     localStorage.setItem('username', res['username']);
-    localStorage.setItem('id', res['_id'])
+    localStorage.setItem('id', res['_id']);
     this.router.navigate(['']);
   }
 
@@ -49,16 +50,13 @@ export class LoginComponent implements OnInit {
       // Admins Role
       if (element.roleId === 'd3ecb240-cfad-4039-aad1-18ed7b11b721') {
         localStorage.setItem('administrator', 'd3ecb240-cfad-4039-aad1-18ed7b11b721');
-      } 
-      // HRs Role
-      else if (element.roleId === '50fa1b47-68ff-4ecb-b654-d8466620abd6') {
+      } else if (element.roleId === '50fa1b47-68ff-4ecb-b654-d8466620abd6') {
         localStorage.setItem('hr_role', '50fa1b47-68ff-4ecb-b654-d8466620abd6');
       }
     }
     this.authService.changeMessage(res);
-   
   }
-  
+
   onError(err) {
     // console.log('err', err);
     this.loginFailed = true;
