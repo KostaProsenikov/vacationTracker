@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import * as _moment from 'moment';
 import { VacationModel } from '../models/vacation.model';
+import * as _moment from 'moment';
 const moment = _moment;
 
 @Injectable({

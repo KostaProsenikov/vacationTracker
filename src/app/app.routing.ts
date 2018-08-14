@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './guards/auth.guard';
 import { VacationsComponent } from './vacations/vacations.component';
 import { ApprovalsComponent } from './approvals/approvals-component/approvals-component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
     { path: '',         pathMatch: 'full', redirectTo: 'home'},
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'register',  component: RegisterComponent },
     { path: 'vacations', component: VacationsComponent },
     { path: 'approvals', component: ApprovalsComponent },
+    { path: 'users',     component: UsersComponent },
 ]
 
 @NgModule({

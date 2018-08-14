@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.vacationCommentForm = this.formBuilder.group({
       reason:    reason,
     })
-    console.log('this vacation', this.vacationForm, this.vacationCommentForm);
+    // console.log('this vacation', this.vacationForm, this.vacationCommentForm);
   }
 
   onChanges() {
