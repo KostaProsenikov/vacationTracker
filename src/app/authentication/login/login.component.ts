@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { LoginModel } from '../../models/login.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth-service/auth-service.service';
@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   login: LoginModel;
   loginFailed: boolean;
   err: any;
+
   constructor(private authService: AuthService,
               private router: Router) {
     this.login =  new LoginModel('', '');
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSuccessGetRoles(res) {
-    console.log('res', res);
+    // console.log('res', res);
     for (let index = 0; index < res.length; index++) {
       const element = res[index];
       // Admins Role
@@ -54,6 +55,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('hr_role', '50fa1b47-68ff-4ecb-b654-d8466620abd6');
       }
     }
+    this.authService.changeMessage(res);
+   
   }
   
   onError(err) {

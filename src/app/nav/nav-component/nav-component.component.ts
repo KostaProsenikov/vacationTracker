@@ -16,35 +16,43 @@ export class NavComponentComponent implements OnInit, OnDestroy {
   approvals = 0;
   subscribe1: Subscription;
   admin: boolean;
-  @Optional() @Input() gotRoles: string;
+  hr:    boolean;
 
   constructor(private authService: AuthService,
               private router: Router,
               private approvalService: ApprovalService) 
-  {
-
-  }
+  {}
   
   ngOnInit() {
+    this.authService.currentMessage.subscribe((res) => {
+      if(res.length) {
+        // console.log('api here', res);
+        this.checkRoles();
+      }
+    });
     this.subscription = this.router.events.subscribe(event => {
       if(event instanceof NavigationEnd) {
         // if (this.authService.checkIfLogged()) {
           //  this.username = this.authService.getCurrentUser();
           this.username = localStorage.getItem('username');
-          this.admin    = this.authService.checkIfAdmin();
-          if (this.gotRoles) {
-            console.log('user', this.admin);
+          this.checkRoles();
+          if(this.admin) {
+            if(this.subscribe1) {
+              this.subscribe1.unsubscribe();
+            }
+            this.subscribe1 = this.approvalService.getPendingApprovals().subscribe(
+              (res) => this.onSuccessGetApprovals(res),
+              (err) => this.onError(err)
+            );
           }
-         
         // }
       }
     });
-    if(this.admin) {
-      this.subscribe1 = this.approvalService.getPendingApprovals().subscribe(
-        (res) => this.onSuccessGetApprovals(res),
-        (err) => this.onError(err)
-      );
-    } 
+  }
+
+  checkRoles() {
+    this.admin    = this.authService.checkIfAdmin();
+    this.hr       = this.authService.checkIfHR();
   }
 
   onSuccessGetApprovals(res) {
@@ -74,6 +82,7 @@ export class NavComponentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.subscribe1.unsubscribe();
   }
 
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { LoginModel } from '../../models/login.model';
 import { RegisterModel } from '../../models/register.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { RegisterModel } from '../../models/register.model';
 export class AuthService {
 
   private currentAuthToken: string;
+  private messageSource = new BehaviorSubject('');
 
   constructor(private http: HttpClient) { }
   APPKEY        = 'kid_SyM0pR9rm';
@@ -19,6 +21,7 @@ export class AuthService {
   LOGIN_URL     = `https://baas.kinvey.com/user/${this.APPKEY}/login`;
   LOGOUT_URL    = `https://baas.kinvey.com/user/${this.APPKEY}/_logout`;
   ROLES_URL     = `https://baas.kinvey.com/user/${this.APPKEY}/`;
+  currentMessage = this.messageSource.asObservable();
 
   login(model: LoginModel) {
     return this.http.post(this.LOGIN_URL, 
@@ -26,6 +29,10 @@ export class AuthService {
       {
         headers: this.createAuthHeaders('Basic')
       });
+  }
+
+  changeMessage(message) {
+    this.messageSource.next(message)
   }
 
   register(model: RegisterModel) {
