@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 import * as _moment from 'moment';
+import { UserModel } from '../models/user.model';
 const moment = _moment;
 
 
@@ -20,6 +21,14 @@ export class UsersService {
     {
       headers: this.createAuthHeaders('Kinvey')
     });
+  }
+
+  updateUser(user: UserModel) {
+    return this.http.put(this.USERS_URL + user._id,
+      JSON.stringify(user),
+      {
+        headers: this.createAuthHeaders('Kinvey')
+      });
   }
 
   

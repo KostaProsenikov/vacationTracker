@@ -12,3 +12,6 @@ dialog-overview-example-dialog h3 {
 .btnMargin {
     margin-left: 15px;
 }
+.mat-form-field-flex {
+    width: 50px !important;
+}

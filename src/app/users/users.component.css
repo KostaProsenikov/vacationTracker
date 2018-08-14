@@ -1,3 +1,19 @@
 .usersTable {
     width: 100%;
 }
+input {
+    margin-top: 6px;
+    position: relative;
+}
+.daysLeftField {
+    width: 50px !important;
+}
+/* To remove the default underline */
+.mat-input-underline.mat-form-field-underline {
+    background: transparent;
+ }
+ 
+ /* To remove the underline ripple */
+ .mat-input-ripple.mat-form-field-ripple{
+    background-color: transparent; 
+ }
