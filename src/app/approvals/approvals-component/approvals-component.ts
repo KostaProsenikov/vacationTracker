@@ -68,7 +68,7 @@ export class ApprovalsComponent implements OnInit {
         const approvalObj: ApprovalModel = { _id: null, vacationId: res._id, status: status, updatedBy: this.username };
         this.approvalService.addApprovalRecord(approvalObj).subscribe(
           (result) => {
-            console.log('result', result);
+            // console.log('result', result);
           },
           (err) => this.onError(err)
         )

@@ -37,7 +37,7 @@ export class ApprovalService {
     return this.http.put(this.VACATIONS_URL + vacationReq._id, 
       JSON.stringify(vacationReq),
     {
-      headers: this.createAuthHeaders('Kinvey')
+      headers: this.createAuthHeaders('Master')
     });
   }
 
@@ -45,6 +45,11 @@ export class ApprovalService {
     if (type === 'Basic') {
       return new HttpHeaders({
         'Authorization': `Basic ${btoa(`${this.APPKEY}:${this.APP_SECRET}`)}`,
+        'Content-Type': 'application/json'
+      })
+    } else if (type === 'Master') {
+      return new HttpHeaders({
+        'Authorization': `Basic a2lkX1N5TTBwUjlybTo4MDI5YWUxZDVmZjI0ZTlkYWZiYWI3NmFhNzNlN2QxYg==`,
         'Content-Type': 'application/json'
       })
     } else {

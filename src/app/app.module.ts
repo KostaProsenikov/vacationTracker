@@ -25,6 +25,7 @@ import { MatTableModule } from '@angular/material/table';
 import { VacationsComponent, DialogOverviewExampleDialog } from './vacations/vacations.component';
 import { MatDialogModule } from '@angular/material';
 import { ApprovalsComponent } from './approvals/approvals-component/approvals-component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ApprovalsComponent } from './approvals/approvals-component/approvals-co
     HomeComponent,
     VacationsComponent,
     DialogOverviewExampleDialog,
-    ApprovalsComponent
+    ApprovalsComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

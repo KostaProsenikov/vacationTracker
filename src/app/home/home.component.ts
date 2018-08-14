@@ -18,13 +18,14 @@ const moment = _moment;
   ]
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
-  vacationForm: FormGroup;
-  user:         UserModel;
-  color     = 'primary';
-  mode      = 'indeterminate';
-  minDate   = new Date(Date.now());
-  minDate1  = new Date(Date.now());
-  id        = localStorage.getItem('id');
+  vacationForm:        FormGroup;
+  vacationCommentForm: FormGroup;
+  user:                UserModel;
+  color           = 'primary';
+  mode            = 'indeterminate';
+  minDate         = new Date(Date.now());
+  minDate1        = new Date(Date.now());
+  id              = localStorage.getItem('id');
   errorMsg:       string;
   daysTaken:      number;
   refreshTrigger: string;
@@ -54,20 +55,27 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   vacationFormInitialize() {
+    const daysTaken = new FormControl({value: 0,   disabled: true }, [Validators.required]);
+    const reason    = new FormControl({value: '',   disabled: false }, [Validators.required]);
+
     this.vacationForm = this.formBuilder.group({
       startDate: new FormControl({value: '', disabled: true }, [Validators.required]),
       endDate:   new FormControl({value: '', disabled: true }, [Validators.required]),
-      daysTaken: new FormControl({value: 0,  disabled: true })
+      daysTaken: daysTaken,
     });
-    // console.log('this vacation', this.vacationForm);
+    this.vacationCommentForm = this.formBuilder.group({
+      reason:    reason,
+    })
+    console.log('this vacation', this.vacationForm, this.vacationCommentForm);
   }
 
   onChanges() {
     this.observable1 = this.vacationForm.valueChanges.subscribe( (val) => {
+      // console.log('val', val);
       const date     = moment(val['startDate']);
       if (val['startDate'] !== '') {
         this.minDate1  = new Date(moment.utc(date).toDate());
-      } else {
+      } else if (val['daysTaken'] !== 0) {
         this.minDate1 =  new Date(Date.now());
       }
       // console.log('date', date);
@@ -102,9 +110,10 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
     form.daysTaken   = this.daysTaken;
     form.createdBy   = this.id;
-    form.isApproved  = false;
+    form.isApproved  = undefined;
     form.isCancelled = false;
     form.approvedBy  = '';
+    form.reason      = this.vacationCommentForm.value.reason;
 
     this.vacationService.requestVacation(form).subscribe(
       (res) => this.onSuccessRequestVacation(res),
