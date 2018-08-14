@@ -38,7 +38,7 @@
         <th mat-header-cell *matHeaderCellDef> Vacation Days </th>
         <td mat-cell *matCellDef="let element"> 
           <form [formGroup]="vacationDaysForm">
-            <mat-form-field class="example-full-width daysLeftField">
+            <mat-form-field appearance="outline" class="example-full-width daysLeftField">
                 <input matInput type="number" [value]="element.daysLeft" (change)="valueChange($event, element)" formControlName="daysLeft" />
             </mat-form-field>
           </form>

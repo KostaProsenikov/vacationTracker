@@ -8,12 +8,11 @@ input {
 .daysLeftField {
     width: 50px !important;
 }
-/* To remove the default underline */
-.mat-input-underline.mat-form-field-underline {
-    background: transparent;
- }
- 
- /* To remove the underline ripple */
- .mat-input-ripple.mat-form-field-ripple{
-    background-color: transparent; 
- }
+.mat-form-field-infix .mat-input-element {
+    position: absolute !important;
+    top: 6px !important;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    margin-top: 14px !important;
+    margin-right: 7px !important;
+}

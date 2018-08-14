@@ -37,3 +37,16 @@
     font-weight: 600;
     margin-bottom: 40px;
 }
+
+app-users > div > table > tbody > tr > td> form > mat-form-field > div > .mat-form-field-flex > .mat-form-field-infix > .mat-input-element {
+    position: absolute !important;
+    top: -5px !important;
+    left: 1px;
+}
+app-users > div > table > tbody > tr > td> form > mat-form-field > div > div.mat-form-field-flex {
+    margin-top: 14px !important;
+    margin-right: 7px !important;
+}
+.mat-form-field-appearance-outline .mat-form-field-flex {
+    height: 35px;
+}
