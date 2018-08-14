@@ -15,12 +15,12 @@ export class AuthService {
   private messageSource = new BehaviorSubject('');
 
   constructor(private http: HttpClient) { }
-  APPKEY        = 'kid_SyM0pR9rm';
-  APP_SECRET    = '9de57fd6deaa4665a137f24199906832';
-  REGISTER_URL  = `https://baas.kinvey.com/user/${this.APPKEY}`;
-  LOGIN_URL     = `https://baas.kinvey.com/user/${this.APPKEY}/login`;
-  LOGOUT_URL    = `https://baas.kinvey.com/user/${this.APPKEY}/_logout`;
-  ROLES_URL     = `https://baas.kinvey.com/user/${this.APPKEY}/`;
+  APPKEY         = 'kid_SyM0pR9rm';
+  APP_SECRET     = '9de57fd6deaa4665a137f24199906832';
+  REGISTER_URL   = `https://baas.kinvey.com/user/${this.APPKEY}`;
+  LOGIN_URL      = `https://baas.kinvey.com/user/${this.APPKEY}/login`;
+  LOGOUT_URL     = `https://baas.kinvey.com/user/${this.APPKEY}/_logout`;
+  ROLES_URL      = `https://baas.kinvey.com/user/${this.APPKEY}/`;
   currentMessage = this.messageSource.asObservable();
 
   login(model: LoginModel) {

@@ -1,6 +1,6 @@
 export class VacationModel {
     constructor(
-        public _id         : number,
+        public _id         : string,
         public startDate   : string,
         public endDate     : string,
         public daysTaken   : number,

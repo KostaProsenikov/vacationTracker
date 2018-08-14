@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApprovalService } from '../../services/approval.service';
 import { MatTableDataSource } from '@angular/material/table';
 import * as _moment from 'moment';
+import { VacationModel } from '../../models/vacation.model';
+import { ApprovalModel } from '../../models/approval.model';
 const moment = _moment;
 
 @Component({
@@ -13,11 +15,17 @@ export class ApprovalsComponent implements OnInit {
   dataSource: any;
   displayedColumns = ['startDate', 'endDate', 'fullName', 'daysTaken', 'isApproved', 'reason', 'approval'];
   awaitingApprovals = [];
+  username: string;
 
 
   constructor(private approvalService: ApprovalService) { }
 
   ngOnInit() {
+    this.username = localStorage.getItem('username');
+    this.getAwaitingApprovals();
+  }
+
+  getAwaitingApprovals() {
     this.approvalService.getPendingApprovals().subscribe(
       (res) => this.onSuccessGetApprovals(res),
       (err) => this.onError(err)
@@ -30,6 +38,7 @@ export class ApprovalsComponent implements OnInit {
 
   onSuccessGetApprovals(res) {
   //  console.log('res', res);
+    this.awaitingApprovals = [];
     for (let index = 0; index < res.length; index++) { 
       const element = res[index];
       if (element.startDate) {
@@ -43,8 +52,29 @@ export class ApprovalsComponent implements OnInit {
     this.dataSource  = new MatTableDataSource(this.awaitingApprovals);
   }
 
-  approveRejectVacation(element, varBool: boolean) {
-    console.log('el', element, varBool);
+  approveRejectVacation(element: VacationModel, varBool: boolean) {
+    // console.log('el', element, varBool);
+    if (varBool === true) {
+      element.isApproved = true;
+    } else {
+      element.isApproved = false;
+    }
+    element.approvedBy = this.username;
+    this.approvalService.changeActiveVacationRequest(element).subscribe(
+      (res: VacationModel) => {
+        // console.log('res', res);
+        this.getAwaitingApprovals();
+        const status = element.isApproved ? 'Approved' : 'Rejected';
+        const approvalObj: ApprovalModel = { _id: null, vacationId: res._id, status: status, updatedBy: this.username };
+        this.approvalService.addApprovalRecord(approvalObj).subscribe(
+          (result) => {
+            console.log('result', result);
+          },
+          (err) => this.onError(err)
+        )
+      },
+      (err) => this.onError(err)
+    )
   }
 
 
