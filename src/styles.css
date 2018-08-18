@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 .requestBtn {
     margin-top: 36px !important;
@@ -49,4 +50,8 @@ app-users > div > table > tbody > tr > td> form > mat-form-field > div > div.mat
 }
 .mat-form-field-appearance-outline .mat-form-field-flex {
     height: 35px;
+}
+.cal-month-view {
+    margin-bottom: 100px;
+    color: black;
 }

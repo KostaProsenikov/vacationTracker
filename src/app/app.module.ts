@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from 'angular-calendar';
 
 import { AppComponent } from './app.component';
 import { HighLightDirective } from './directives/highlight.directive';
@@ -26,6 +27,9 @@ import { VacationsComponent, DialogOverviewExampleDialog } from './vacations/vac
 import { MatDialogModule } from '@angular/material';
 import { ApprovalsComponent } from './approvals/approvals-component/approvals-component';
 import { UsersComponent } from './users/users.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +44,8 @@ import { UsersComponent } from './users/users.component';
     VacationsComponent,
     DialogOverviewExampleDialog,
     ApprovalsComponent,
-    UsersComponent
+    UsersComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,9 @@ import { UsersComponent } from './users/users.component';
     MatInputModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    CalendarModule.forRoot(),
+    NgbModule.forRoot()
   ],
   exports: [
     MatButtonModule,

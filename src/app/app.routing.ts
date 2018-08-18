@@ -1,3 +1,4 @@
+import { CalendarComponent } from './calendar/calendar.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './authentication/login/login.component';
@@ -11,12 +12,13 @@ import { UsersComponent } from './users/users.component';
 const routes: Routes = [
     { path: '',         pathMatch: 'full', redirectTo: 'home'},
     // { path: 'home',     component: HomeComponent, canActivate: [ AuthGuard ] },
-    { path: 'home',      component: HomeComponent, canActivate: [ ] },
-    { path: 'login',     component: LoginComponent },
-    { path: 'register',  component: RegisterComponent },
-    { path: 'vacations', component: VacationsComponent },
-    { path: 'approvals', component: ApprovalsComponent },
-    { path: 'users',     component: UsersComponent },
+    { path: 'home',          component: HomeComponent, canActivate: [ ] },
+    { path: 'login',         component: LoginComponent },
+    { path: 'register',      component: RegisterComponent },
+    { path: 'vacations',     component: VacationsComponent, canActivate: [ AuthGuard ] },
+    { path: 'approvals',     component: ApprovalsComponent, canActivate: [ AuthGuard ] },
+    { path: 'users',         component: UsersComponent, canActivate: [ AuthGuard ] },
+    { path: 'team-calendar', component: CalendarComponent },
 ];
 
 @NgModule({
