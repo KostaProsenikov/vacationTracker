@@ -1,6 +1,6 @@
-# DirectiveApp
+# Vacation Tracker Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+Using vacation tracker you can track Vacations and Sick Leaves on employess, they can request vacations and get them approved by managers. 
 
 ## Development server
 
