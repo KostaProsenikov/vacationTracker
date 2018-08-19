@@ -13,18 +13,6 @@ import { VacationService } from '../services/vacation.service';
 
 const moment = _moment;
 
-const colors: any = {
-  red: {
-    primary: '#ad2121'
-  },
-  blue: {
-    primary: '#1e90ff'
-  },
-  yellow: {
-    primary: '#e3bc08'
-  }
-};
-
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -76,7 +64,7 @@ export class CalendarComponent implements OnInit {
     }
 
     onSuccessGetAllVacations(res) {
-        console.log('res', res);
+        // console.log('res', res);
         this.events = [];
         for (let index = 0; index < res.length; index++) {
           const vacation: VacationModel = res[index];
@@ -84,12 +72,14 @@ export class CalendarComponent implements OnInit {
           const eventObj = {
             start: new Date(moment(vacation.startDate).toDate()),
             end:   new Date(moment(vacation.endDate).toDate()),
-            title: `${user.fullName}: ${vacation.daysTaken} days - ${vacation.reason}`,
+            title: `${user.fullName}: ${vacation.daysTaken} days - `
+            + `from ${moment(vacation.startDate).format('DD.MM.YYYY')} to `
+            + `${moment(vacation.endDate).format('DD.MM.YYYY')} - ${vacation.reason}`,
             color: user.color
           };
           this.events.push(eventObj);
         }
-        console.log('event', this.events);
+        // console.log('event', this.events);
     }
 
     searchForUserId(userId: string) {

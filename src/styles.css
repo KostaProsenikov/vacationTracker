@@ -53,5 +53,20 @@ app-users > div > table > tbody > tr > td> form > mat-form-field > div > div.mat
 }
 .cal-month-view {
     margin-bottom: 100px;
+    margin-top: 50px;
     color: black;
+}
+.topLabel {
+    margin-top: 20px;
+}
+.topLabel h3 {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 2.2rem;
+    margin-top: -14px;
+    margin-left: -43px;
+    width: 438px;
+}
+.main {
+    margin-bottom: 50px;
 }
