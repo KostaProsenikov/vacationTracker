@@ -5,6 +5,8 @@ export class RegisterModel {
         public firstName: string,
         public lastName: string,
         public email: string,
-        public age?: number
+        public age?: number,
+        public daysLeft?: number,
+        public color?: string
     ) {}
 }

@@ -28,7 +28,8 @@ import { MatDialogModule } from '@angular/material';
 import { ApprovalsComponent } from './approvals/approvals-component/approvals-component';
 import { UsersComponent } from './users/users.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
     MatTableModule,
     MatDialogModule,
     CalendarModule.forRoot(),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    ColorPickerModule
   ],
   exports: [
     MatButtonModule,
