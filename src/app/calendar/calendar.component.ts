@@ -1,3 +1,5 @@
+import { VacationModel } from './../models/vacation.model';
+import { UserModel } from './../models/user.model';
 import { Component, OnInit, Input } from '@angular/core';
 import { CalendarEvent, CalendarEventAction } from 'angular-calendar';
 import * as _moment from 'moment';
@@ -6,21 +8,20 @@ import { ViewChild } from '@angular/core';
 import { TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/';
 import { Subject } from 'rxjs';
+import { UsersService } from '../services/users.service';
+import { VacationService } from '../services/vacation.service';
 
 const moment = _moment;
 
 const colors: any = {
   red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
+    primary: '#ad2121'
   },
   blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
+    primary: '#1e90ff'
   },
   yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
+    primary: '#e3bc08'
   }
 };
 
@@ -30,55 +31,96 @@ const colors: any = {
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent implements OnInit {
+  usersArray: any[] = [];
 
-  constructor(private modal: NgbModal) { }
+  constructor(private modal: NgbModal,
+              private userService: UsersService,
+              private vacationService: VacationService) { }
 
-  @ViewChild('modalContent') modalContent: TemplateRef<any>;
+    @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
-  view = 'month';
+    view = 'month';
 
-  modalData: {
-    action: string;
-    event: CalendarEvent<any>;
-  };
+    modalData: {
+      action: string;
+      event: CalendarEvent<any>;
+    };
 
-  activeDayIsOpen = false;
-  @Input() viewDate = new Date();
-  @Input() events: CalendarEvent[] = [
-    {
-      start: new Date(moment().toDate()),
-      end:   new Date(moment().add(1, 'days').toDate()),
-      title: 'Vacation',
-      color: colors.red
-    },
-    {
-      start: new Date(moment().toDate()),
-      end:   new Date(moment().add(2, 'days').toDate()),
-      title: 'Mimi Trip to Athens',
-      color: colors.blue
-    }
-  ];
+    activeDayIsOpen = false;
+    @Input() viewDate = new Date();
+    @Input() events: CalendarEvent[] = [];
 
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
+    actions: CalendarEventAction[] = [
+      {
+        label: '<i class="fa fa-fw fa-pencil"></i>',
+        onClick: ({ event }: { event: CalendarEvent }): void => {
+          this.handleEvent('Edited', event);
+        }
+      },
+      {
+        label: '<i class="fa fa-fw fa-times"></i>',
+        onClick: ({ event }: { event: CalendarEvent }): void => {
+          this.events = this.events.filter(iEvent => iEvent !== event);
+          this.handleEvent('Deleted', event);
+        }
       }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
+    ];
+
+    refresh: Subject<any> = new Subject();
+
+    ngOnInit() {
+      this.userService.getUsers().subscribe(
+        (res) => this.onSuccessGetUsers(res),
+        (err) => this.onError(err)
+      );
     }
-  ];
 
-  refresh: Subject<any> = new Subject();
+    onSuccessGetAllVacations(res) {
+        console.log('res', res);
+        this.events = [];
+        for (let index = 0; index < res.length; index++) {
+          const vacation: VacationModel = res[index];
+          const user = this.searchForUserId(vacation.createdBy);
+          const eventObj = {
+            start: new Date(moment(vacation.startDate).toDate()),
+            end:   new Date(moment(vacation.endDate).toDate()),
+            title: `${user.fullName}: ${vacation.daysTaken} days - ${vacation.reason}`,
+            color: user.color
+          };
+          this.events.push(eventObj);
+        }
+        console.log('event', this.events);
+    }
 
-  ngOnInit() {
-  }
+    searchForUserId(userId: string) {
+       return this.usersArray.find(user => user.id === userId);
+    }
+
+    onSuccessGetUsers(res) {
+      if (res.length) {
+        this.usersArray = [];
+        for (let index = 0; index < res.length; index++) {
+          const user = res[index];
+          let userObj = {};
+          if (user.color) {
+            userObj = { id: user._id, fullName: `${user.firstName} ${user.lastName}`, color: JSON.parse(user.color)};
+          } else {
+            userObj = { id: user._id , fullName: `${user.firstName} ${user.lastName}`, color: { primary: '#1D4EDB'}};
+          }
+          this.usersArray.push(userObj);
+        }
+        // console.log('user', this.usersArray);
+      }
+      this.vacationService.getAllApprovedVacations().subscribe(
+        (result) => this.onSuccessGetAllVacations(result),
+        (err) => this.onError(err)
+      );
+    }
+
+    onError(err) {
+      console.log('error', err);
+    }
+
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {

@@ -27,6 +27,13 @@ export class VacationService {
     });
   }
 
+  getAllApprovedVacations() {
+    return this.http.get(this.VACATIONS_URL + `?query={"isApproved": true, "isCancelled": false}&sort={"startDate": 1}`,
+    {
+      headers: this.createAuthHeaders('Kinvey')
+    });
+  }
+
   cancelVacation(vacationObj: VacationModel) {
     return this.http.put(this.VACATIONS_URL + vacationObj._id,
       JSON.stringify(vacationObj),

@@ -8,5 +8,7 @@ export class VacationModel {
         public isApproved ?: boolean,
         public isCancelled?: boolean,
         public approvedBy ?: string,
+        public createdBy  ?: string,
+        public fullName   ?: string
     ) {}
 }
