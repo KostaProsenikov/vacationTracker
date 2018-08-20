@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     for (let index = 0; index < res.length; index++) {
       const element = res[index];
       // Admins Role
-      if (element.roleId === 'd3ecb240-cfad-4039-aad1-18ed7b11b721') {
+      if (element.roleId        === 'd3ecb240-cfad-4039-aad1-18ed7b11b721') {
         localStorage.setItem('administrator', 'd3ecb240-cfad-4039-aad1-18ed7b11b721');
       } else if (element.roleId === '50fa1b47-68ff-4ecb-b654-d8466620abd6') {
         localStorage.setItem('hr_role', '50fa1b47-68ff-4ecb-b654-d8466620abd6');

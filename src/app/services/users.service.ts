@@ -31,6 +31,13 @@ export class UsersService {
       });
   }
 
+  getUser(id) {
+    return this.http.get(this.USERS_URL + id,
+      {
+        headers: this.createAuthHeaders('Kinvey')
+      });
+  }
+
 
   private createAuthHeaders(type: string): HttpHeaders {
     if (type === 'Basic') {

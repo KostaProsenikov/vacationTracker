@@ -1,3 +1,4 @@
+import { UsersService } from './users.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VacationModel } from '../models/vacation.model';
@@ -11,7 +12,8 @@ export class VacationService {
   VACATIONDAYS_URL = `https://baas.kinvey.com/user/${this.APPKEY}/`;
   VACATIONS_URL    = `https://baas.kinvey.com/appdata/${this.APPKEY}/vacations/`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private userService: UsersService) { }
 
   getVacationDays(id) {
     return this.http.get(this.VACATIONDAYS_URL + id,
@@ -42,13 +44,13 @@ export class VacationService {
       });
   }
 
-  setVacationDays(id, daysLeft: number) {
-    const form = {'daysLeft': daysLeft};
-    return this.http.put (this.VACATIONDAYS_URL + id,
-      JSON.stringify(form),
-      {
-        headers: this.createAuthHeaders('Kinvey')
-      });
+  setVacationDays(user) {
+    const id = user._id;
+    return this.http.put(this.VACATIONDAYS_URL + id,
+      JSON.stringify(user),
+    {
+      headers: this.createAuthHeaders('Kinvey')
+    });
   }
 
   requestVacation(form: VacationModel) {

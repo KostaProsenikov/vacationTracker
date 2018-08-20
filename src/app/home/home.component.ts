@@ -6,6 +6,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { MyDateAdapter } from '../adapters/date_adapter';
 import { Subscription } from 'rxjs';
 import * as _moment from 'moment';
+import { UsersService } from '../services/users.service';
 const moment = _moment;
 
 @Component({
@@ -33,7 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private vacationService: VacationService,
               private formBuilder: FormBuilder,
-              private cd: ChangeDetectorRef) { }
+              private cd: ChangeDetectorRef,
+              private userService: UsersService) { }
 
   ngOnInit() {
     this.vacationFormInitialize();
@@ -71,9 +73,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   onChanges() {
     this.observable1 = this.vacationForm.valueChanges.subscribe( (val) => {
       // console.log('val', val);
-      const date     = moment(val['startDate']);
+      const date = moment(val['startDate']);
       if (val['startDate'] !== '') {
-        this.minDate1  = new Date(moment.utc(date).toDate());
+        this.minDate1 = new Date(moment.utc(date).toDate());
       } else if (val['daysTaken'] !== 0) {
         this.minDate1 =  new Date(Date.now());
       }
@@ -82,7 +84,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       if (val['startDate'] !== '' && val['endDate'] !== '') {
         const startDate  = moment(val['startDate']);
         const endDate    = moment(val['endDate']);
-        const   daysDiff   = startDate.diff(endDate.add(1, 'days'), 'days');
+        const daysDiff   = startDate.diff(endDate.add(1, 'days'), 'days');
         if (daysDiff > 0) {
           this.errorMsg = 'You cannot request days in the past!';
         } else {
@@ -128,11 +130,16 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
      this.reinitializeDates();
      this.vacationFormInitialize();
      this.onChanges();
-     this.vacationService.setVacationDays(id, daysLeft).subscribe(
-      // tslint:disable-next-line:no-shadowed-variable
-      (res) => this.onSuccessSetDays(res),
-      (err) => this.onError(err)
-    );
+     this.userService.getUser(id).subscribe(
+      (result) => {
+        const user = result;
+        user['daysLeft'] = daysLeft;
+        // console.log('updated User', user);
+        this.vacationService.setVacationDays(user).subscribe(
+          (res1) => this.onSuccessSetDays(res1),
+          (err) => this.onError(err)
+        );
+      });
   }
 
   onSuccessSetDays(res) {

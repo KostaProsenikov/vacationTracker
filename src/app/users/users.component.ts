@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit {
 
   valueChange($event, element: UserModel) {
     const newDays = Number($event.target.value);
-    console.log('evv', newDays , element);
+    // console.log('evv', newDays , element);
     element.daysLeft = newDays;
     const userUpdated = element;
     this.userService.updateUser(userUpdated).subscribe(
@@ -42,7 +42,7 @@ export class UsersComponent implements OnInit {
   }
 
   onUpdatedUser(res) {
-    console.log('updated', res);
+    // console.log('updated', res);
   }
 
   applyFilter(filterValue: string) {
