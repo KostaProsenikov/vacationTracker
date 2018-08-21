@@ -79,8 +79,8 @@ export class VacationsComponent implements OnInit {
   onSuccessGetDaysLeft(res, daysTaken: number) {
     // console.log('beforeDays', res);
     const user = res;
-    const daysLeft = Number(user.daysLeft) + daysTaken;
-    this.vacationService.setVacationDays(this.id, daysLeft).subscribe(
+    user.daysLeft = Number(user.daysLeft) + daysTaken;
+    this.vacationService.setVacationDays(user).subscribe(
       (result) => this.onSuccessSetDays(result),
       (err) => this.onError(err)
     );
