@@ -1,27 +1,22 @@
 # Vacation Tracker Application
+Vacation Tracker App ReadMe
 
-Using vacation tracker you can track Vacations and Sick Leaves on employess, they can request vacations and get them approved by managers. 
+Vacation tracker is an application for requesting Vacations in a company. 
+It is using Angular Material Design by Google and Kinvey console as a backend service. 
 
-## Development server
+# Vacation tracker has three different roles with different rights:
+# 1.User role – users can :
+•	Request vacations, provide reason for the vacation;
+•	Cancel their own vacations before they are due (before their start date); 
+•	Search in previous and next vacations;
+•	Look up all team members’ vacations in the Team Calendar page and plan accordingly their vacations;
+•	Check their left paid days for the year (20 days for each year);
+•	At registration paid days are calculated per month left for the current year 
+(1.66 days per month, for example if user register August they have 1.66 * 5 months = 8.3  ~ 8 days left;
+# 2.Manager role – 
+•	Managers can approve and reject vacation requests 
+•	 All the stuff users can do;
+# 3.HR role – 
+•	HRs can set up user profile and change vacation days left for each user;
+•	HRs can do all of the stuff of the user;
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
