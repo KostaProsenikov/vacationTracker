@@ -31,7 +31,7 @@ export class NavComponentComponent implements OnInit, OnDestroy {
     });
     this.subscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // if (this.authService.checkIfLogged()) {
+        if (this.authService.checkIfLogged()) {
           //  this.username = this.authService.getCurrentUser();
           this.username = localStorage.getItem('username');
           this.checkRoles();
@@ -44,7 +44,7 @@ export class NavComponentComponent implements OnInit, OnDestroy {
               (err) => this.onError(err)
             );
           }
-        // }
+        }
       }
     });
   }

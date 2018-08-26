@@ -116,6 +116,7 @@ export class VacationsComponent implements OnInit {
         element.startDateFormatted = startDateFormatted;
         element.endDateFormatted   = endDateFormatted;
         const daysDiff  = startDate.diff(today, 'days');
+        // console.log('days', daysDiff, startDate);
         if (daysDiff <= 0) {
           this.previousVacations.push(element);
         } else {
