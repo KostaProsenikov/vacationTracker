@@ -3,6 +3,7 @@ import { AuthService } from '../../authentication/auth-service/auth-service.serv
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ApprovalService } from '../../services/approval.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav-component',
@@ -20,7 +21,8 @@ export class NavComponentComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private approvalService: ApprovalService) {}
+              private approvalService: ApprovalService,
+              private toastr: ToastrService) {}
 
   ngOnInit() {
     this.authService.currentMessage.subscribe((res) => {
@@ -70,12 +72,12 @@ export class NavComponentComponent implements OnInit, OnDestroy {
   }
 
   onSuccessLogout(res) {
-    // console.log('res', res);
     localStorage.removeItem('authtoken');
     localStorage.removeItem('username');
     localStorage.removeItem('administrator');
     localStorage.removeItem('hr_role');
     this.username = undefined;
+    this.toastr.success('Successfully logged out!', 'Success');
     this.router.navigate(['/login']);
   }
 

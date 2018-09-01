@@ -3,6 +3,7 @@ import { UsersService } from '../services/users.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserModel } from '../models/user.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-users',
@@ -17,7 +18,8 @@ export class UsersComponent implements OnInit {
   vacationDaysForm: FormGroup;
 
   constructor(private userService: UsersService,
-              private formBuilder: FormBuilder ) { }
+              private formBuilder: FormBuilder,
+              private toastr:    ToastrService ) { }
 
   ngOnInit() {
     this.getAllUsers();
@@ -43,6 +45,7 @@ export class UsersComponent implements OnInit {
 
   onUpdatedUser(res) {
     // console.log('updated', res);
+    this.toastr.success('Successfully set user days', 'Success');
   }
 
   applyFilter(filterValue: string) {
@@ -52,7 +55,6 @@ export class UsersComponent implements OnInit {
   getAllUsers() {
     this.userService.getUsers().subscribe(
       (res: Array<any>) => {
-        // console.log('res', res);
         this.users = res;
         this.dataSource   = new MatTableDataSource(this.users);
       },
@@ -62,6 +64,7 @@ export class UsersComponent implements OnInit {
 
   onError(err) {
     console.log('err', err);
+    this.toastr.error('Something got wrong, please try again!', 'Error!');
   }
 
 }

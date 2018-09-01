@@ -3,7 +3,7 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 
-.toast-top-center {  
+.toast-top-right {  
     top: 120px;
 }
 .requestBtn {

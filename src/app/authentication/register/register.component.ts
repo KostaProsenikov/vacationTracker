@@ -3,6 +3,7 @@ import { RegisterModel } from '../../models/register.model';
 import { AuthService } from '../auth-service/auth-service.service';
 import { Router } from '@angular/router';
 import * as _moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 const moment = _moment;
 
 @Component({
@@ -16,7 +17,8 @@ export class RegisterComponent implements OnInit {
   err: string;
 
   constructor(private authService: AuthService,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastrService) {
     this.model = new RegisterModel('', '', '', '', '', 18, 0, '#F39347');
   }
 
@@ -43,11 +45,13 @@ export class RegisterComponent implements OnInit {
 
   onSuccessRegisterUser(res) {
     // console.log('res', res);
+    this.toastr.success('Successfully registered!', 'Success');
     this.router.navigate(['/login']);
   }
 
   onError(err) {
     // console.log('err', err);
+    this.toastr.error('Error, something got wrong, please try again!', 'Error');
     this.loginFailed = true;
     this.err = err;
   }

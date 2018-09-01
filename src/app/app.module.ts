@@ -70,7 +70,7 @@ import { ToastrModule } from 'ngx-toastr';
     ColorPickerModule,
     ToastrModule.forRoot({
       timeOut: 2000,
-      positionClass: 'toast-top-center',
+      positionClass: 'toast-top-right',
       preventDuplicates: true,
     })
   ],

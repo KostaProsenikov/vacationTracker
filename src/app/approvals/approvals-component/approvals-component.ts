@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import * as _moment from 'moment';
 import { VacationModel } from '../../models/vacation.model';
 import { ApprovalModel } from '../../models/approval.model';
+import { ToastrService } from 'ngx-toastr';
 const moment = _moment;
 
 @Component({
@@ -18,7 +19,8 @@ export class ApprovalsComponent implements OnInit {
   username: string;
 
 
-  constructor(private approvalService: ApprovalService) { }
+  constructor(private approvalService: ApprovalService,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     this.username = localStorage.getItem('username');
@@ -68,7 +70,7 @@ export class ApprovalsComponent implements OnInit {
         const approvalObj: ApprovalModel = { _id: null, vacationId: res._id, status: status, updatedBy: this.username };
         this.approvalService.addApprovalRecord(approvalObj).subscribe(
           (result) => {
-            // console.log('result', result);
+            this.toastr.success(`Successfully ${status.toLowerCase()} the vacation`, 'Success!');
           },
           (err) => this.onError(err)
         );
@@ -80,6 +82,7 @@ export class ApprovalsComponent implements OnInit {
 
   onError(err) {
     console.log('err', err);
+    this.toastr.error(`Something got wrong, please try again!`, 'Error!');
   }
 
 }

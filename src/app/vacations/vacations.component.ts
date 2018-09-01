@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { DialogData } from './dialogData';
 import { VacationModel } from '../models/vacation.model';
 import * as _moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 const moment = _moment;
 
 // const ELEMENT_DATA: VacationModel[] = [];
@@ -32,7 +33,8 @@ export class VacationsComponent implements OnInit {
   }
 
   constructor(private vacationService: VacationService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
       this.getAllVacations();
@@ -77,7 +79,6 @@ export class VacationsComponent implements OnInit {
   }
 
   onSuccessGetDaysLeft(res, daysTaken: number) {
-    // console.log('beforeDays', res);
     const user = res;
     user.daysLeft = Number(user.daysLeft) + daysTaken;
     this.vacationService.setVacationDays(user).subscribe(
@@ -88,6 +89,7 @@ export class VacationsComponent implements OnInit {
 
   onSuccessSetDays(res) {
     // console.log('resultDays', res);
+    this.toastr.success('Successfully cancelled your vacation!', 'Success!');
   }
 
 
@@ -131,6 +133,7 @@ export class VacationsComponent implements OnInit {
 
   onError(err): any {
     console.log('err', err);
+    this.toastr.error('Error something got wrong, please try again!', 'Error!');
   }
 
 }
