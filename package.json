@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^6.1.2",
+    "@angular/animations": "^6.1.6",
     "@angular/cdk": "^6.4.3",
     "@angular/common": "^6.0.3",
     "@angular/compiler": "^6.0.3",
@@ -29,6 +29,7 @@
     "enhanced-resolve": "^3.3.0",
     "moment": "^2.22.2",
     "ngx-color-picker": "^6.6.0",
+    "ngx-toastr": "^9.0.2",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },

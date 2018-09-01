@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { LoginModel } from '../../models/login.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth-service/auth-service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -15,15 +16,15 @@ export class LoginComponent implements OnInit {
   err: any;
 
   constructor(private authService: AuthService,
-              private router: Router) {
-    this.login =  new LoginModel('', '');
+              private router: Router,
+              private toastr: ToastrService) {
+        this.login =  new LoginModel('', '');
   }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    // console.log('login', this.login);
     this.authService.login(this.login).subscribe(
       (res) => this.onSuccessLoginUser(res),
       (err) => this.onError(err)
@@ -31,10 +32,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSuccessLoginUser(res) {
+    this.toastr.success('Successfully logged in!', 'Success');
     // console.log('res', res);
     this.authService.getUserRoles(res['_id']).subscribe(
-      // tslint:disable-next-line:no-shadowed-variable
-      (res) => this.onSuccessGetRoles(res),
+      (result) => this.onSuccessGetRoles(result),
       (err) => this.onError(err));
     this.authService.authtoken = res['_kmd']['authtoken'];
     localStorage.setItem('authtoken', res['_kmd']['authtoken']);
@@ -58,9 +59,9 @@ export class LoginComponent implements OnInit {
   }
 
   onError(err) {
-    // console.log('err', err);
     this.loginFailed = true;
     this.err = err;
+    this.toastr.error('Please check your credentials!', 'Error!');
   }
 
 }

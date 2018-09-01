@@ -7,6 +7,7 @@ import { MyDateAdapter } from '../adapters/date_adapter';
 import { Subscription } from 'rxjs';
 import * as _moment from 'moment';
 import { UsersService } from '../services/users.service';
+import { ToastrService } from 'ngx-toastr';
 const moment = _moment;
 
 @Component({
@@ -35,7 +36,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private vacationService: VacationService,
               private formBuilder: FormBuilder,
               private cd: ChangeDetectorRef,
-              private userService: UsersService) { }
+              private userService: UsersService,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     this.vacationFormInitialize();
@@ -86,9 +88,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
         const endDate    = moment(val['endDate']);
         const daysDiff   = startDate.diff(endDate.add(1, 'days'), 'days');
         if (daysDiff > 0) {
-          this.errorMsg = 'You cannot request days in the past!';
+          this.toastr.error('You cannot request days in the past!', 'Error!');
         } else {
-          this.errorMsg = '';
           this.daysTaken = Math.abs(daysDiff);
         }
       }
@@ -144,14 +145,17 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onSuccessSetDays(res) {
     this.user = res;
+    this.toastr.success('You have requested your vacation!', 'Success!');
   }
 
   onSuccess(res) {
     this.user = res;
+    this.toastr.success(`You have ${this.user['daysLeft']} days left!`);
   }
 
   onError(err) {
     console.log('err', err);
+    this.toastr.error('Something got wrong, please try again!', 'Error!');
   }
 
   ngOnDestroy() {

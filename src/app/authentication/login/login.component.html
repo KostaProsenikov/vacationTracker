@@ -1,9 +1,9 @@
 
 <h1>Login Form</h1>
-<div *ngIf="loginFailed" class="alert alert-danger">
+<!-- <div *ngIf="loginFailed" class="alert alert-danger">
     <span *ngIf="err.status === 401">Invalid username or password</span>
     <span *ngIf="err.status !== 401">Error: {{err.message}}</span>
-</div>
+</div> -->
 <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="username">Username</label>

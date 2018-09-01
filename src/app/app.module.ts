@@ -30,7 +30,7 @@ import { UsersComponent } from './users/users.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColorPickerModule } from 'ngx-color-picker';
-
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -67,7 +67,12 @@ import { ColorPickerModule } from 'ngx-color-picker';
     MatDialogModule,
     CalendarModule.forRoot(),
     NgbModule.forRoot(),
-    ColorPickerModule
+    ColorPickerModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+    })
   ],
   exports: [
     MatButtonModule,

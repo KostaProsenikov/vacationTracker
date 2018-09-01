@@ -38,11 +38,11 @@
     <div class="row" *ngIf="vacationForm">
       <!-- str {{vacationForm.value.startDate}}, 
       startDate -> {{vacationForm.value.startDate === ''}}, endDate {{vacationForm.value.endDate === ''}},
-      length -> {{vacationForm.value.reason.length <= 3 }}, err -> {{this.errorMsg !== ''}} , days -> {{ user.daysLeft <= 0 }} -->
+      length -> {{vacationForm.value.reason.length <= 3 }} , days -> {{ user.daysLeft <= 0 }} -->
       <button mat-raised-button class="requestBtn" color="primary" matBadge="{{user.daysLeft}}" 
       matBadgePosition="after" matBadgeColor="accent" 
       [disabled]="vacationForm.value.startDate === '' || vacationForm.value.endDate === '' || 
-      (vacationCommentForm.value.reason.length < 3) || this.errorMsg !== '' || user.daysLeft <= 0">
+      (vacationCommentForm.value.reason.length < 3) || user.daysLeft <= 0">
         Request Vacation
       </button>
     </div>
