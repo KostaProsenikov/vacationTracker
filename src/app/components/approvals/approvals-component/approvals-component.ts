@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ApprovalService } from '../../services/approval.service';
+import { ApprovalService } from '../../../services/approval.service';
 import { MatTableDataSource } from '@angular/material/table';
 import * as _moment from 'moment';
-import { VacationModel } from '../../models/vacation.model';
-import { ApprovalModel } from '../../models/approval.model';
+import { VacationModel } from '../../../models/vacation.model';
+import { ApprovalModel } from '../../../models/approval.model';
 import { ToastrService } from 'ngx-toastr';
 const moment = _moment;
 

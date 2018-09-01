@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { LoginModel } from '../../models/login.model';
-import { RegisterModel } from '../../models/register.model';
+import { LoginModel } from '../../../models/login.model';
+import { RegisterModel } from '../../../models/register.model';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

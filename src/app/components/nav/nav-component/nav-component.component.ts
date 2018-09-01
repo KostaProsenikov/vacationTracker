@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Optional, Input } from '@angular/core';
 import { AuthService } from '../../authentication/auth-service/auth-service.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ApprovalService } from '../../services/approval.service';
+import { ApprovalService } from '../../../services/approval.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

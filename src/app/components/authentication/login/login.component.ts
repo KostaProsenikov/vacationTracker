@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { LoginModel } from '../../models/login.model';
+import { LoginModel } from '../../../models/login.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth-service/auth-service.service';
 import { ToastrService } from 'ngx-toastr';

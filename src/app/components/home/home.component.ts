@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { VacationService } from '../services/vacation.service';
-import { UserModel } from '../models/user.model';
+import { VacationService } from '../../services/vacation.service';
+import { UserModel } from '../../models/user.model';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MyDateAdapter } from '../adapters/date_adapter';
+import { MyDateAdapter } from '../../adapters/date_adapter';
 import { Subscription } from 'rxjs';
 import * as _moment from 'moment';
-import { UsersService } from '../services/users.service';
+import { UsersService } from '../../services/users.service';
 import { ToastrService } from 'ngx-toastr';
 const moment = _moment;
 

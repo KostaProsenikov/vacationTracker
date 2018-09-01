@@ -1,13 +1,18 @@
-import { CalendarComponent } from './calendar/calendar.component';
+// Angular Core
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './authentication/login/login.component';
-import { RegisterComponent } from './authentication/register/register.component';
-import { HomeComponent } from './home/home.component';
+
+// Guards
 import { AuthGuard } from './guards/auth.guard';
-import { VacationsComponent } from './vacations/vacations.component';
-import { ApprovalsComponent } from './approvals/approvals-component/approvals-component';
-import { UsersComponent } from './users/users.component';
+
+// Components
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { LoginComponent } from './components/authentication/login/login.component';
+import { RegisterComponent } from './components/authentication/register/register.component';
+import { HomeComponent } from './components/home/home.component';
+import { VacationsComponent } from './components/vacations/vacations.component';
+import { ApprovalsComponent } from './components/approvals/approvals-component/approvals-component';
+import { UsersComponent } from './components/users/users.component';
 
 const routes: Routes = [
     { path: '',              pathMatch: 'full', redirectTo: 'home'},

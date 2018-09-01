@@ -1,14 +1,12 @@
 import { Component, OnInit, Input, Inject, Optional } from '@angular/core';
-import { VacationService } from '../services/vacation.service';
+import { VacationService } from '../../services/vacation.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from './dialogData';
-import { VacationModel } from '../models/vacation.model';
+import { VacationModel } from '../../models/vacation.model';
 import * as _moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 const moment = _moment;
-
-// const ELEMENT_DATA: VacationModel[] = [];
 
 @Component({
   selector: 'app-vacations',

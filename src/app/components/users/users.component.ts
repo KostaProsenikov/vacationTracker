@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../services/users.service';
+import { UsersService } from '../../services/users.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { UserModel } from '../models/user.model';
+import { UserModel } from '../../models/user.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RegisterModel } from '../../models/register.model';
+import { RegisterModel } from '../../../models/register.model';
 import { AuthService } from '../auth-service/auth-service.service';
 import { Router } from '@angular/router';
 import * as _moment from 'moment';

@@ -1,5 +1,4 @@
-import { VacationModel } from './../models/vacation.model';
-import { UserModel } from './../models/user.model';
+import { VacationModel } from './../../models/vacation.model';
 import { Component, OnInit, Input } from '@angular/core';
 import { CalendarEvent, CalendarEventAction } from 'angular-calendar';
 import * as _moment from 'moment';
@@ -8,8 +7,8 @@ import { ViewChild } from '@angular/core';
 import { TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/';
 import { Subject } from 'rxjs';
-import { UsersService } from '../services/users.service';
-import { VacationService } from '../services/vacation.service';
+import { UsersService } from '../../services/users.service';
+import { VacationService } from '../../services/vacation.service';
 
 const moment = _moment;
 
