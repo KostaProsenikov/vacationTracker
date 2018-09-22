@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Components
 import { AppComponent } from './app.component';
@@ -44,6 +44,7 @@ import { CalendarModule } from 'angular-calendar';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
+import { JWTInterceptor } from './interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,13 @@ import { ToastrModule } from 'ngx-toastr';
     MatDialogModule
   ],
   entryComponents: [ DialogOverviewExampleDialog ],
-  providers: [ AuthService, MatNativeDateModule, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}} ],
+  providers: [ AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JWTInterceptor,
+      multi: true
+   },
+   MatNativeDateModule, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}} ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
